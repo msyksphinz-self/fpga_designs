@@ -1,0 +1,200 @@
+16:05:33 INFO  : Launching XSDB server: xsdb.bat C:/tool/Xilinx/SDK/2015.4/scripts/xsdb/xsdb/xsdb-server.tcl
+16:05:34 INFO  : XSDB server has started successfully.
+16:05:34 INFO  : Processing command line option -hwspec C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper.hdf.
+16:06:50 INFO  : 'targets -set -filter {jtag_cable_name =~ "Platform Cable USB II 0000153a893201" && level==0} -index 1' command is executed.
+16:06:51 INFO  : 'fpga -state' command is executed.
+16:06:51 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:06:51 INFO  : Sourcing of 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+16:06:51 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:06:51 INFO  : Hardware design information is loaded from 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf'.
+16:06:52 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:06:52 INFO  : 'stop' command is executed.
+16:06:54 INFO  : 'ps7_init' command is executed.
+16:06:54 INFO  : 'ps7_post_config' command is executed.
+16:06:54 INFO  : 'con' command is executed.
+16:06:55 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:06:55 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+16:06:55 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:06:56 INFO  : The application 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Debug/mmult.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:06:56 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+loadhw C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+stop
+ps7_init
+ps7_post_config
+con
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+dow C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Debug/mmult.elf
+----------------End of Script----------------
+
+16:06:56 INFO  : Memory regions updated for context APU
+16:06:56 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:06:56 INFO  : 'con' command is executed.
+16:06:56 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+con
+----------------End of Script----------------
+
+16:08:11 INFO  : Disconnected from the channel tcfchan#1.
+16:08:11 INFO  : 'targets -set -filter {jtag_cable_name =~ "Platform Cable USB II 0000153a893201" && level==0} -index 1' command is executed.
+16:08:11 INFO  : 'fpga -state' command is executed.
+16:08:11 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:08:11 INFO  : Sourcing of 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+16:08:12 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:08:12 INFO  : Hardware design information is loaded from 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf'.
+16:08:12 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:08:12 INFO  : 'stop' command is executed.
+16:08:14 INFO  : 'ps7_init' command is executed.
+16:08:15 INFO  : 'ps7_post_config' command is executed.
+16:08:15 INFO  : 'con' command is executed.
+16:08:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:15 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+16:08:15 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:16 INFO  : The application 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Debug/mmult.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:08:16 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+loadhw C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+stop
+ps7_init
+ps7_post_config
+con
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+dow C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Debug/mmult.elf
+----------------End of Script----------------
+
+16:08:16 INFO  : Memory regions updated for context APU
+16:08:16 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:16 INFO  : 'con' command is executed.
+16:08:16 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+con
+----------------End of Script----------------
+
+16:08:53 INFO  : 'targets -set -filter {jtag_cable_name =~ "Platform Cable USB II 0000153a893201" && level==0} -index 1' command is executed.
+16:08:53 INFO  : 'fpga -state' command is executed.
+16:08:53 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:08:54 INFO  : Sourcing of 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+16:08:54 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:08:54 INFO  : Hardware design information is loaded from 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf'.
+16:08:54 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:08:54 INFO  : 'stop' command is executed.
+16:08:56 INFO  : 'ps7_init' command is executed.
+16:08:56 INFO  : 'ps7_post_config' command is executed.
+16:08:56 INFO  : 'con' command is executed.
+16:08:56 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:57 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+16:08:57 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:58 INFO  : The application 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Release/mmult.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:08:58 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+loadhw C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+stop
+ps7_init
+ps7_post_config
+con
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+dow C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Release/mmult.elf
+----------------End of Script----------------
+
+16:08:58 INFO  : Memory regions updated for context APU
+16:08:58 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:08:58 INFO  : 'con' command is executed.
+16:08:58 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+con
+----------------End of Script----------------
+
+16:09:09 WARN  : Unexpected exception occurred.
+java.io.IOException: Command [C 243 xsdb eval "disconnect tcfchan#2"] aborted
+	at org.eclipse.tcf.core.AbstractChannel$9.run(AbstractChannel.java:753)
+	at org.eclipse.tcf.EventQueue.run(EventQueue.java:95)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:209)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:284)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at java.io.FilterInputStream.read(FilterInputStream.java:107)
+	at org.eclipse.tcf.core.ChannelTCP.get(ChannelTCP.java:162)
+	at org.eclipse.tcf.core.StreamChannel.read(StreamChannel.java:84)
+	at org.eclipse.tcf.core.AbstractChannel$1.run(AbstractChannel.java:254)
+16:09:09 WARN  : Unexpected exception occurred.
+java.io.IOException: Command [C 244 xsdb eval "disconnect tcfchan#2"] aborted
+	at org.eclipse.tcf.core.AbstractChannel$9.run(AbstractChannel.java:753)
+	at org.eclipse.tcf.EventQueue.run(EventQueue.java:95)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:209)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:284)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at java.io.FilterInputStream.read(FilterInputStream.java:107)
+	at org.eclipse.tcf.core.ChannelTCP.get(ChannelTCP.java:162)
+	at org.eclipse.tcf.core.StreamChannel.read(StreamChannel.java:84)
+	at org.eclipse.tcf.core.AbstractChannel$1.run(AbstractChannel.java:254)
+16:16:04 INFO  : Launching XSDB server: xsdb.bat C:/tool/Xilinx/SDK/2015.4/scripts/xsdb/xsdb/xsdb-server.tcl
+16:16:05 INFO  : XSDB server has started successfully.
+16:16:08 INFO  : Processing command line option -hwspec C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper.hdf.
+16:16:09 INFO  : Checking for hwspec changes in the project system_wrapper_hw_platform_0.
+16:16:22 INFO  : Launching XSDB server: xsdb.bat C:/tool/Xilinx/SDK/2015.4/scripts/xsdb/xsdb/xsdb-server.tcl
+16:16:23 INFO  : XSDB server has started successfully.
+16:16:27 INFO  : Processing command line option -hwspec C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper.hdf.
+16:16:28 INFO  : Checking for hwspec changes in the project system_wrapper_hw_platform_0.
+16:16:37 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:16:38 INFO  : 'targets -set -filter {jtag_cable_name =~ "Platform Cable USB II 0000153a893201" && level==0} -index 1' command is executed.
+16:16:50 INFO  : FPGA configured successfully with bitstream "C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system_wrapper.bit"
+16:17:08 INFO  : 'targets -set -filter {jtag_cable_name =~ "Platform Cable USB II 0000153a893201" && level==0} -index 1' command is executed.
+16:17:08 INFO  : 'fpga -state' command is executed.
+16:17:08 INFO  : Connected to target on host '127.0.0.1' and port '3121'.
+16:17:08 INFO  : Sourcing of 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl' is done.
+16:17:08 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:17:08 INFO  : Hardware design information is loaded from 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf'.
+16:17:09 INFO  : 'targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0' command is executed.
+16:17:09 INFO  : 'stop' command is executed.
+16:17:10 INFO  : 'ps7_init' command is executed.
+16:17:10 INFO  : 'ps7_post_config' command is executed.
+16:17:10 INFO  : 'con' command is executed.
+16:17:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:17:11 INFO  : Processor reset is completed for 'ps7_cortexa9_0'.
+16:17:11 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:17:12 INFO  : The application 'C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Release/mmult.elf' is downloaded to processor 'ps7_cortexa9_0'.
+16:17:12 INFO  : ----------------XSDB Script----------------
+connect -url tcp:127.0.0.1:3121
+source C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/ps7_init.tcl
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+loadhw C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/system_wrapper_hw_platform_0/system.hdf
+targets -set -filter {name =~"APU" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+stop
+ps7_init
+ps7_post_config
+con
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+rst -processor
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+dow C:/home/designs/xapp1170/xapp1170_2015_4/vivado/project_1/project_1.sdk/mmult/Release/mmult.elf
+----------------End of Script----------------
+
+16:17:12 INFO  : Memory regions updated for context APU
+16:17:12 INFO  : Context for processor 'ps7_cortexa9_0' is selected.
+16:17:12 INFO  : 'con' command is executed.
+16:17:12 INFO  : ----------------XSDB Script (After Launch)----------------
+targets -set -nocase -filter {name =~ "ARM*#0" && jtag_cable_name =~ "Platform Cable USB II 0000153a893201"} -index 0
+con
+----------------End of Script----------------
+
+16:17:18 INFO  : Launching XSDB server: xsdb.bat C:/tool/Xilinx/SDK/2015.4/scripts/xsdb/xsdb/xsdb-server.tcl

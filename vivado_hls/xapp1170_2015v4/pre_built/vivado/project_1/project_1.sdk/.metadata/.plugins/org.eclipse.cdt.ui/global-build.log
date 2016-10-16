@@ -1,0 +1,411 @@
+16:06:13 **** Build of project mmult_bsp ****
+make -k all 
+"Running Make include in ps7_cortexa9_0/libsrc/axidma_v9_0/src"
+make -C ps7_cortexa9_0/libsrc/axidma_v9_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src"
+make -C ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/ddrps_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/devcfg_v3_3/src"
+make -C ps7_cortexa9_0/libsrc/devcfg_v3_3/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/dmaps_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/dmaps_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scugic_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/scugic_v3_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scutimer_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scuwdt_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/standalone_v5_3/src"
+make -C ps7_cortexa9_0/libsrc/standalone_v5_3/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/tmrctr_v4_0/src"
+make -C ps7_cortexa9_0/libsrc/tmrctr_v4_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/ttcps_v3_0/src"
+make -C ps7_cortexa9_0/libsrc/ttcps_v3_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/uartps_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/uartps_v3_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/xadcps_v2_2/src"
+make -C ps7_cortexa9_0/libsrc/xadcps_v2_2/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make libs in ps7_cortexa9_0/libsrc/axidma_v9_0/src"
+make -C ps7_cortexa9_0/libsrc/axidma_v9_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling axidma"
+In file included from xaxidma.h:470:0,
+                 from xaxidma.c:83:
+xaxidma.c: In function 'XAxiDma_Reset':
+xaxidma_bdring.h:238:26: warning: assignment makes pointer from integer without a cast
+    (RingPtr)->BdaRestart =      \
+                          ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:243:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:248:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:238:26: warning: assignment makes pointer from integer without a cast
+    (RingPtr)->BdaRestart =      \
+                          ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+xaxidma_bdring.h:243:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+xaxidma_bdring.h:248:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+arm-xilinx-eabi-ar: creating ../../../lib/libxil.a
+"Running Make libs in ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src"
+make -C ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling coresightps_dcc"
+"Running Make libs in ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling cpu_cortexa9"
+"Running Make libs in ps7_cortexa9_0/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/ddrps_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling ddrps"
+"Running Make libs in ps7_cortexa9_0/libsrc/devcfg_v3_3/src"
+make -C ps7_cortexa9_0/libsrc/devcfg_v3_3/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling devcfg"
+"Running Make libs in ps7_cortexa9_0/libsrc/dmaps_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/dmaps_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling dmaps"
+"Running Make libs in ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling HLS_accel"
+"Running Make libs in ps7_cortexa9_0/libsrc/scugic_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/scugic_v3_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scugic"
+"Running Make libs in ps7_cortexa9_0/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scutimer_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scutimer"
+"Running Make libs in ps7_cortexa9_0/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scuwdt_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scuwdt"
+"Running Make libs in ps7_cortexa9_0/libsrc/standalone_v5_3/src"
+make -C ps7_cortexa9_0/libsrc/standalone_v5_3/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling standalone"
+"Running Make libs in ps7_cortexa9_0/libsrc/tmrctr_v4_0/src"
+make -C ps7_cortexa9_0/libsrc/tmrctr_v4_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling tmrctr"
+"Running Make libs in ps7_cortexa9_0/libsrc/ttcps_v3_0/src"
+make -C ps7_cortexa9_0/libsrc/ttcps_v3_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling ttcps"
+"Running Make libs in ps7_cortexa9_0/libsrc/uartps_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/uartps_v3_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling uartps"
+"Running Make libs in ps7_cortexa9_0/libsrc/xadcps_v2_2/src"
+make -C ps7_cortexa9_0/libsrc/xadcps_v2_2/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling xadcps"
+'Finished building libraries'
+16:06:24 **** Build of configuration Debug for project mmult ****
+make all 
+'Building file: ../src/helloworld.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/helloworld.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.d" -o "src/helloworld.o" "../src/helloworld.c"
+'Finished building: ../src/helloworld.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O0 -g3 -c -fmessage-length=0 -MT"src/platform.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: mmult.elf'
+' '
+'Invoking: ARM Print Size'
+arm-xilinx-eabi-size mmult.elf  |tee "mmult.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22888	   1152	  22564	  46604	   b60c	mmult.elf
+'Finished building: mmult.elf.size'
+' '
+16:06:47 **** Incremental Build of configuration Release for project mmult ****
+make all 
+'Building file: ../src/helloworld.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/helloworld.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/helloworld.d" -MT"src/helloworld.d" -o "src/helloworld.o" "../src/helloworld.c"
+'Finished building: ../src/helloworld.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/platform.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/helloworld.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: mmult.elf'
+' '
+'Invoking: ARM Print Size'
+arm-xilinx-eabi-size mmult.elf  |tee "mmult.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  22828	   1152	  22564	  46544	   b5d0	mmult.elf
+'Finished building: mmult.elf.size'
+' '
+16:07:03 **** Clean-only build of configuration Release for project mmult ****
+make clean 
+rm -rf  ./src/helloworld.o ./src/platform.o  ./src/helloworld.d ./src/platform.d  mmult.elf.size  mmult.elf
+' '
+16:07:03 **** Auto Build of configuration Release for project mmult ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/platform.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+../../mmult_bsp/ps7_cortexa9_0/lib\libxil.a(xil-crt0.o): In function `_start':
+C:\home\designs\xapp1170\xapp1170_2015_4\vivado\project_1\project_1.sdk\mmult_bsp\ps7_cortexa9_0\libsrc\standalone_v5_3\src/xil-crt0.S:133: undefined reference to `main'
+collect2.exe: error: ld returned 1 exit status
+make: *** [mmult.elf] Error 1
+16:07:09 **** Auto Build of configuration Release for project mmult ****
+make all 
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+../../mmult_bsp/ps7_cortexa9_0/lib\libxil.a(xil-crt0.o): In function `_start':
+C:\home\designs\xapp1170\xapp1170_2015_4\vivado\project_1\project_1.sdk\mmult_bsp\ps7_cortexa9_0\libsrc\standalone_v5_3\src/xil-crt0.S:133: undefined reference to `main'
+collect2.exe: error: ld returned 1 exit status
+make: *** [mmult.elf] Error 1
+16:07:53 **** Auto Build of configuration Release for project mmult ****
+make all 
+'Building file: ../src/lib_xmmult_hw.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/lib_xmmult_hw.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/lib_xmmult_hw.d" -MT"src/lib_xmmult_hw.d" -o "src/lib_xmmult_hw.o" "../src/lib_xmmult_hw.c"
+../src/lib_xmmult_hw.c: In function 'Start_HW_Accelerator':
+../src/lib_xmmult_hw.c:152:3: warning: 'return' with a value, in function returning void
+   return XST_FAILURE;
+   ^
+../src/lib_xmmult_hw.c:157:3: warning: 'return' with a value, in function returning void
+   return XST_FAILURE;
+   ^
+'Finished building: ../src/lib_xmmult_hw.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/main.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:59:0: warning: "SIZE" redefined
+ #define SIZE      (DIM*DIM)
+ ^
+In file included from ../src/main.c:54:0:
+../src/lib_xmmult_hw.h:6:0: note: this is the location of the previous definition
+ #define SIZE  ((DIM)*(DIM))
+ ^
+../src/main.c: In function 'main':
+../src/main.c:193:4: warning: implicit declaration of function 'matrix_multiply_ref' [-Wimplicit-function-declaration]
+    matrix_multiply_ref(A, B, res_sw);
+    ^
+../src/main.c:207:4: warning: implicit declaration of function 'Start_HW_Accelerator' [-Wimplicit-function-declaration]
+    Start_HW_Accelerator();
+    ^
+'Finished building: ../src/main.c'
+' '
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/lib_xmmult_hw.o ./src/main.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: mmult.elf'
+' '
+'Invoking: ARM Print Size'
+arm-xilinx-eabi-size mmult.elf  |tee "mmult.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  43572	   2016	  28484	  74072	  12158	mmult.elf
+'Finished building: mmult.elf.size'
+' '
+16:08:09 **** Incremental Build of configuration Release for project mmult ****
+make all 
+make: Nothing to be done for `all'.
+16:08:53 **** Incremental Build of configuration Release for project mmult ****
+make all 
+make: Nothing to be done for `all'.
+16:16:53 **** Build of project mmult_bsp ****
+make -k all 
+"Running Make include in ps7_cortexa9_0/libsrc/axidma_v9_0/src"
+make -C ps7_cortexa9_0/libsrc/axidma_v9_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src"
+make -C ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/ddrps_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/devcfg_v3_3/src"
+make -C ps7_cortexa9_0/libsrc/devcfg_v3_3/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/dmaps_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/dmaps_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scugic_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/scugic_v3_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scutimer_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scuwdt_v2_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/standalone_v5_3/src"
+make -C ps7_cortexa9_0/libsrc/standalone_v5_3/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/tmrctr_v4_0/src"
+make -C ps7_cortexa9_0/libsrc/tmrctr_v4_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/ttcps_v3_0/src"
+make -C ps7_cortexa9_0/libsrc/ttcps_v3_0/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/uartps_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/uartps_v3_1/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make include in ps7_cortexa9_0/libsrc/xadcps_v2_2/src"
+make -C ps7_cortexa9_0/libsrc/xadcps_v2_2/src -s include  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Running Make libs in ps7_cortexa9_0/libsrc/axidma_v9_0/src"
+make -C ps7_cortexa9_0/libsrc/axidma_v9_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling axidma"
+In file included from xaxidma.h:470:0,
+                 from xaxidma.c:83:
+xaxidma.c: In function 'XAxiDma_Reset':
+xaxidma_bdring.h:238:26: warning: assignment makes pointer from integer without a cast
+    (RingPtr)->BdaRestart =      \
+                          ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:243:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:248:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:313:3: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+   XAxiDma_BdRingSnapShotCurrBd(TxRingPtr);
+   ^
+xaxidma_bdring.h:238:26: warning: assignment makes pointer from integer without a cast
+    (RingPtr)->BdaRestart =      \
+                          ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+xaxidma_bdring.h:243:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+xaxidma_bdring.h:248:27: warning: assignment makes pointer from integer without a cast
+     (RingPtr)->BdaRestart =     \
+                           ^
+xaxidma.c:319:4: note: in expansion of macro 'XAxiDma_BdRingSnapShotCurrBd'
+    XAxiDma_BdRingSnapShotCurrBd(RxRingPtr);
+    ^
+"Running Make libs in ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src"
+make -C ps7_cortexa9_0/libsrc/coresightps_dcc_v1_2/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling coresightps_dcc"
+"Running Make libs in ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/cpu_cortexa9_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling cpu_cortexa9"
+"Running Make libs in ps7_cortexa9_0/libsrc/ddrps_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/ddrps_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling ddrps"
+"Running Make libs in ps7_cortexa9_0/libsrc/devcfg_v3_3/src"
+make -C ps7_cortexa9_0/libsrc/devcfg_v3_3/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling devcfg"
+"Running Make libs in ps7_cortexa9_0/libsrc/dmaps_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/dmaps_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling dmaps"
+"Running Make libs in ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src"
+make -C ps7_cortexa9_0/libsrc/HLS_accel_v1_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling HLS_accel"
+"Running Make libs in ps7_cortexa9_0/libsrc/scugic_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/scugic_v3_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scugic"
+"Running Make libs in ps7_cortexa9_0/libsrc/scutimer_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scutimer_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scutimer"
+"Running Make libs in ps7_cortexa9_0/libsrc/scuwdt_v2_1/src"
+make -C ps7_cortexa9_0/libsrc/scuwdt_v2_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling scuwdt"
+"Running Make libs in ps7_cortexa9_0/libsrc/standalone_v5_3/src"
+make -C ps7_cortexa9_0/libsrc/standalone_v5_3/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling standalone"
+"Running Make libs in ps7_cortexa9_0/libsrc/tmrctr_v4_0/src"
+make -C ps7_cortexa9_0/libsrc/tmrctr_v4_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling tmrctr"
+"Running Make libs in ps7_cortexa9_0/libsrc/ttcps_v3_0/src"
+make -C ps7_cortexa9_0/libsrc/ttcps_v3_0/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling ttcps"
+"Running Make libs in ps7_cortexa9_0/libsrc/uartps_v3_1/src"
+make -C ps7_cortexa9_0/libsrc/uartps_v3_1/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling uartps"
+"Running Make libs in ps7_cortexa9_0/libsrc/xadcps_v2_2/src"
+make -C ps7_cortexa9_0/libsrc/xadcps_v2_2/src -s libs  "SHELL=CMD" "COMPILER=arm-xilinx-eabi-gcc" "ARCHIVER=arm-xilinx-eabi-ar" "COMPILER_FLAGS=  -O2 -c" "EXTRA_COMPILER_FLAGS=-g"
+"Compiling xadcps"
+'Finished building libraries'
+16:17:04 **** Clean-only build of configuration Release for project mmult ****
+make clean 
+rm -rf  ./src/lib_xmmult_hw.o ./src/main.o ./src/platform.o  ./src/lib_xmmult_hw.d ./src/main.d ./src/platform.d  mmult.elf.size  mmult.elf
+' '
+16:17:04 **** Build of configuration Release for project mmult ****
+make all 
+'Building file: ../src/lib_xmmult_hw.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/lib_xmmult_hw.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/lib_xmmult_hw.d" -MT"src/lib_xmmult_hw.d" -o "src/lib_xmmult_hw.o" "../src/lib_xmmult_hw.c"
+../src/lib_xmmult_hw.c: In function 'Start_HW_Accelerator':
+../src/lib_xmmult_hw.c:152:3: warning: 'return' with a value, in function returning void
+   return XST_FAILURE;
+   ^
+../src/lib_xmmult_hw.c:157:3: warning: 'return' with a value, in function returning void
+   return XST_FAILURE;
+   ^
+'Finished building: ../src/lib_xmmult_hw.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/main.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c:59:0: warning: "SIZE" redefined
+ #define SIZE      (DIM*DIM)
+ ^
+In file included from ../src/main.c:54:0:
+../src/lib_xmmult_hw.h:6:0: note: this is the location of the previous definition
+ #define SIZE  ((DIM)*(DIM))
+ ^
+../src/main.c: In function 'main':
+../src/main.c:193:4: warning: implicit declaration of function 'matrix_multiply_ref' [-Wimplicit-function-declaration]
+    matrix_multiply_ref(A, B, res_sw);
+    ^
+../src/main.c:207:4: warning: implicit declaration of function 'Start_HW_Accelerator' [-Wimplicit-function-declaration]
+    Start_HW_Accelerator();
+    ^
+'Finished building: ../src/main.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: ARM gcc compiler'
+arm-xilinx-eabi-gcc -Wall -O2 -c -fmessage-length=0 -MT"src/platform.o" -I../../mmult_bsp/ps7_cortexa9_0/include -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building target: mmult.elf'
+'Invoking: ARM gcc linker'
+arm-xilinx-eabi-gcc -Wl,-T -Wl,../src/lscript.ld -L../../mmult_bsp/ps7_cortexa9_0/lib -o "mmult.elf"  ./src/lib_xmmult_hw.o ./src/main.o ./src/platform.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group
+'Finished building target: mmult.elf'
+' '
+'Invoking: ARM Print Size'
+arm-xilinx-eabi-size mmult.elf  |tee "mmult.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+  43572	   2016	  28484	  74072	  12158	mmult.elf
+'Finished building: mmult.elf.size'
+' '

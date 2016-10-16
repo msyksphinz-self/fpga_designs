@@ -1,0 +1,34 @@
+{
+   guistr: "# # String gsaved with Nlview 6.5.5  2015-06-26 bk=1.3371 VDI=38 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -y 20 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y 40 -defaultsOSRD
+preplace inst processing_system7_1 -pg 1 -lvl 1 -y 310 -defaultsOSRD
+preplace inst HLS_accel_1 -pg 1 -lvl 2 -y 70 -defaultsOSRD
+preplace inst axi_dma_1 -pg 1 -lvl 2 -y 1010 -defaultsOSRD
+preplace inst xlconcat_1 -pg 1 -lvl 3 -y 350 -defaultsOSRD
+preplace inst axi_timer_1 -pg 1 -lvl 2 -y 1200 -defaultsOSRD
+preplace inst axi_interconnect_0 -pg 1 -lvl 2 -y 380 -defaultsOSRD
+preplace inst axi_interconnect_1 -pg 1 -lvl 2 -y 730 -defaultsOSRD
+preplace inst proc_sys_reset -pg 1 -lvl 1 -y 80 -defaultsOSRD
+preplace netloc processing_system7_1_ddr 1 1 5 430 150 NJ 150 NJ 150 NJ 150 NJ
+preplace netloc axi_dma_1_m_axi_mm2s 1 1 2 520 230 940
+preplace netloc proc_sys_reset_interconnect_aresetn 1 1 1 440
+preplace netloc axi_dma_1_m_axi_s2mm 1 1 2 510 210 950
+preplace netloc processing_system7_1_fclk_clk0 1 0 2 20 -10 450
+preplace netloc proc_sys_reset_peripheral_aresetn 1 1 1 460
+preplace netloc xlconcat_1_dout 1 0 4 40 540 NJ 540 NJ 540 1150
+preplace netloc axi_dma_1_m_axis_mm2s 1 1 2 500 550 930
+preplace netloc HLS_accel_1_output_stream 1 1 2 480 -10 940
+preplace netloc processing_system7_1_fixed_io 1 1 5 470 160 NJ 40 NJ 40 NJ 40 NJ
+preplace netloc processing_system7_1_fclk_reset0_n 1 0 2 30 170 420
+preplace netloc HLS_accel_1_interrupt 1 2 1 960
+preplace netloc processing_system7_1_m_axi_gp0 1 1 1 430
+preplace netloc axi_interconnect_1_m01_axi 1 1 2 490 890 910
+preplace netloc axi_interconnect_0_M00_AXI 1 0 3 30 530 NJ 530 900
+preplace netloc processing_system7_1_axi_periph_m00_axi 1 1 2 520 1300 920
+preplace netloc axi_timer_1_interrupt 1 2 1 970
+preplace netloc axi_interconnect_1_m02_axi 1 1 2 520 900 900
+levelinfo -pg 1 0 230 710 1060 1170 1220 1260 -top -20 -bot 1310
+",
+}
