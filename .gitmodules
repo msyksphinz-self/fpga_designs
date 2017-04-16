@@ -1,0 +1,3 @@
+[submodule "zedboard_hdl"]
+	path = zedboard_hdl
+	url = https://github.com/msyksphinz/hdl.git
