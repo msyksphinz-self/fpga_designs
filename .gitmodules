@@ -4,3 +4,6 @@
 [submodule "zedboard_hdl_201701"]
 	path = zedboard_hdl_201701
 	url = https://github.com/msyksphinz/hdl.git
+[submodule "u-boot-Digilent-Dev"]
+	path = u-boot-Digilent-Dev
+	url = https://github.com/DigilentInc/u-boot-Digilent-Dev.git
