@@ -85,7 +85,9 @@ module system_top (
   iic_mux_scl,
   iic_mux_sda,
 
-  otg_vbusoc);
+  led,
+				   
+  otg_vbusoc,);
 
   inout   [14:0]  ddr_addr;
   inout   [ 2:0]  ddr_ba;
@@ -110,7 +112,7 @@ module system_top (
   inout           fixed_io_ps_porb;
   inout           fixed_io_ps_srstb;
 
-  inout   [31:0]  gpio_bd;
+  inout   [27:0]  gpio_bd;
 
   output          hdmi_out_clk;
   output          hdmi_vsync;
@@ -134,6 +136,8 @@ module system_top (
 
   input           otg_vbusoc;
 
+   output [ 3:0]  led;
+   
   // internal signals
 
   wire    [63:0]  gpio_i;
@@ -151,11 +155,11 @@ module system_top (
   // instantiations
 
   ad_iobuf #(
-    .DATA_WIDTH(32)
+    .DATA_WIDTH(28)
   ) i_iobuf (
-    .dio_t(gpio_t[31:0]),
-    .dio_i(gpio_o[31:0]),
-    .dio_o(gpio_i[31:0]),
+    .dio_t({gpio_t[31:23], gpio_t[18:0]}),
+    .dio_i({gpio_o[31:23], gpio_o[18:0]}),
+    .dio_o({gpio_i[31:23], gpio_i[18:0]}),
     .dio_p(gpio_bd));
 
   ad_iobuf #(
@@ -231,6 +235,7 @@ module system_top (
     .ps_intr_12 (1'b0),
     .ps_intr_13 (1'b0),
     .otg_vbusoc (otg_vbusoc),
+	.led(led),
     .spdif (spdif),
     .spi0_clk_i (1'b0),
     .spi0_clk_o (),
