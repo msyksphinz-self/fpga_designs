@@ -1,0 +1,264 @@
+/*
+
+Vivado v2017.1 (64-bit)
+SW Build 1846317 on Fri Apr 14 18:54:47 MDT 2017
+IP Build 1846188 on Fri Apr 14 20:52:08 MDT 2017
+
+Process ID: 7365
+License: Customer
+
+Current time: 	5/20/17 1:28:01 PM JST
+Time zone: 	Japan Standard Time (Asia/Tokyo)
+
+OS: DISTRIB_ID=Ubuntu
+OS Version: 4.4.0-78-generic
+OS Architecture: amd64
+Available processors (cores): 2
+
+Display: localhost:10.0
+Screen size: 3360x1080
+Screen resolution (DPI): 74
+Available screens: 1
+Available disk space: 17 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	/opt/Xilinx/Vivado/2017.1/tps/lnx64/jre
+JVM executable location: 	/opt/Xilinx/Vivado/2017.1/tps/lnx64/jre/bin/java
+Java library paths: /opt/Xilinx/Vivado/2017.1/tps/lnx64/libxslt/lib:/opt/Xilinx/Vivado/2017.1/lib/lnx64.o:/opt/Xilinx/Vivado/2017.1/tps/lnx64/jre/lib/amd64:/opt/Xilinx/Vivado/2017.1/tps/lnx64/jre/lib/amd64/server:/opt/riscv64/lib/:/opt/riscv64/lib/::/opt/Xilinx/Vivado/2017.1/lnx64/tools/dot/lib:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+
+User name: 	msyksphinz
+User home directory: /home/msyksphinz
+User working directory: /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed
+User country: 	JP
+User language: 	ja
+User locale: 	ja_JP
+
+RDI_BASEROOT: /opt/Xilinx/Vivado
+HDI_APPROOT: /opt/Xilinx/Vivado/2017.1
+RDI_DATADIR: /opt/Xilinx/Vivado/2017.1/data
+RDI_BINDIR: /opt/Xilinx/Vivado/2017.1/bin
+
+User preferences location: /home/msyksphinz/.Xilinx/Vivado
+Vivado preferences directory: /home/msyksphinz/.Xilinx/Vivado/2017.1/vivado.xml
+Vivado layouts directory: /home/msyksphinz/.Xilinx/Vivado/2017.1/layouts
+PlanAhead jar location: 	/opt/Xilinx/Vivado/2017.1/lib/classes/planAhead.jar
+Vivado Look & Feel: 	[Synthetica - the extended Synth Look and Feel. - ui.g.i.H]
+Engine tmp dir: 	./.Xil/Vivado-7365-msyksphinz-VirtualBox
+
+GUI allocated memory:	165 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 4,961 MB
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 38 MB (+37825kb) [00:00:07]
+// [Engine Memory]: 4,895 MB (+4981725kb) [00:00:07]
+// Opening Vivado Project: adv7511_zed.xpr. Version: Vivado v2017.1 
+// bs:g (cg:JFrame):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_FAILED
+// TclEventType: RUN_CURRENT
+// TclEventType: MSGMGR_REFRESH_MSG
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 61 MB (+21985kb) [00:00:10]
+// Tcl Message: open_project adv7511_zed.xpr 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/ip_repo/myLed_1.0'. INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/library'. INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2017.1/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,045 MB. GUI used memory: 34 MB. Current time: 5/20/17 1:28:04 PM JST
+// Tcl Message: open_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 6014.090 ; gain = 141.258 ; free physical = 1264 ; free virtual = 6793 
+// Project name: adv7511_zed; location: /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed; part: xc7z020clg484-1
+dismissDialog("Open Project"); // bs:g (cg:JFrame)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// a:a (cg:JFrame): Critical Messages: addNotify
+// Tcl Message: update_compile_order -fileset sources_1 
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f:a (JPanel:JComponent, a:a)
+dismissDialog("Critical Messages"); // a:a (cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(RDIResource.MainWinMenuMgr_LAYOUT, "Layout"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(RDIResource.MainWinMenuMgr_LAYOUT, "Layout"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(RDIResource.MainWinMenuMgr_LAYOUT, "Layout"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(RDIResource.MainWinMenuMgr_LAYOUT, "Layout"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_VIEW, "View"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_VIEW, "View"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(RDIResource.MainWinMenuMgr_LAYOUT, "Layout"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // Z:JMenu (JPopupMenu:JComponent, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v)]", 1, true); // B:i (D:JPanel, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v)]", 1, true, false, false, false, false, true); // B:i (D:JPanel, cg:JFrame) - Double Click - Node
+// [GUI Memory]: 70 MB (+6058kb) [00:00:44]
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v)]", 5); // B:i (D:JPanel, cg:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd)]", 6, true); // B:i (D:JPanel, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd)]", 6, true, false, false, false, false, true); // B:i (D:JPanel, cg:JFrame) - Double Click - Node
+// bs:g (cg:JFrame):  Open Block Design : addNotify
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: LOAD_FEATURE
+// TclEventType: RSB_PROPERTY_CHANGE
+// TclEventType: RSB_OPEN_DIAGRAM
+// Tcl Message: open_bd_design {/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.srcs/sources_1/bd/system/system.bd} 
+// Tcl Message: Adding cell -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc Adding cell -- xilinx.com:ip:axi_crossbar:2.1 - xbar Adding cell -- xilinx.com:ip:axi_protocol_converter:2.1 - auto_pc Successfully read diagram <system> from BD file </home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.srcs/sources_1/bd/system/system.bd> 
+// TclEventType: RSB_OPEN_DIAGRAM
+// [GUI Memory]: 80 MB (+6366kb) [00:00:53]
+// TclEventType: RSB_CONNECTION_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,140 MB. GUI used memory: 40 MB. Current time: 5/20/17 1:28:45 PM JST
+// [Engine Memory]: 5,142 MB (+1464kb) [00:00:54]
+// TclEventType: RSB_CONNECTION_CHANGE
+// TclEventType: RSB_LOCK_CHANGE
+// Tcl Message: open_bd_design: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 6127.043 ; gain = 73.930 ; free physical = 1166 ; free virtual = 6696 
+dismissDialog("Open Block Design"); // bs:g (cg:JFrame)
+selectTree(PAResourceQtoS.SystemTreeView_SYSTEM_TREE, "[system]", 0, true); // i:JTree (JViewport:JComponent, cg:JFrame) - Node
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aF:FrameContainer (ContainerContainer:JideSplitPane, cg:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd)]", 6, true); // B:i (D:JPanel, cg:JFrame) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd)]", 6, true, false, false, false, true, false); // B:i (D:JPanel, cg:JFrame) - Popup Trigger - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd)]", 6); // B:i (D:JPanel, cg:JFrame)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd), system (system.v)]", 7); // B:i (D:JPanel, cg:JFrame)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd), system (system.v), myLed_0 : system_myLed_0_0 (system_myLed_0_0.xci)]", 19, false); // B:i (D:JPanel, cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Run Synthesis]", 14, false); // u:M (JViewport:JComponent, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RUN_SYNTHESIS
+// bs:g (cg:JFrame):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run system_myLed_0_0_synth_1 
+// bs:g (cg:JFrame):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// f:p (cg:JFrame): Launch Runs: addNotify
+selectComboBox(PAResourceItoN.NumJobsChooser_NUMBER_OF_JOBS, "2", 1); // e:JComboBox (ao:JPanel, f:p)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, f:p)
+// bs:g (cg:JFrame):  Starting Design Runs : addNotify
+// TclEventType: DG_ANALYSIS_MSG_RESET
+dismissDialog("Launch Runs"); // f:p (cg:JFrame)
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs synth_1 -jobs 2 
+// Tcl Message: [Sat May 20 13:29:18 2017] Launched system_myLed_0_0_synth_1... Run output will be captured here: /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.runs/system_myLed_0_0_synth_1/runme.log [Sat May 20 13:29:18 2017] Launched synth_1... Run output will be captured here: /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.runs/synth_1/runme.log 
+// 'k' command handler elapsed time: 6 seconds
+dismissDialog("Starting Design Runs"); // bs:g (cg:JFrame)
+// TclEventType: RUN_FAILED
+// Elapsed time: 16 seconds
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aF:FrameContainer (ContainerContainer:JideSplitPane, cg:JFrame)
+//  *** Exceptions that should be ignored by HSystem.debug () - swept under the rug. *** 
+/*
+java.lang.NullPointerException
+*/
+selectTab((HResource) null, (HResource) null, "Log", 2); // aF:FrameContainer (ContainerContainer:JideSplitPane, cg:JFrame)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, system]", 3, false); // i:JTree (JViewport:JComponent, cg:JFrame)
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, system]", 3, false, false, false, false, false, true); // i:JTree (JViewport:JComponent, cg:JFrame) - Double Click
+selectTree(PAResourceItoN.LogPanel_LOG_NAVIGATOR, "[Out-of-Context Module Runs, system]", 3, false); // i:JTree (JViewport:JComponent, cg:JFrame)
+// HMemoryUtils.trashcanNow. Engine heap size: 5,193 MB. GUI used memory: 56 MB. Current time: 5/20/17 1:29:38 PM JST
+selectCodeEditor(PAResourceItoN.LogMonitor_MONITOR, 421, 110); // n:bI (JPanel:JComponent, cg:JFrame)
+selectCodeEditor(PAResourceItoN.LogMonitor_MONITOR, 290, 116); // n:bI (JPanel:JComponent, cg:JFrame)
+selectCodeEditor(PAResourceItoN.LogMonitor_MONITOR, 415, 98); // n:bI (JPanel:JComponent, cg:JFrame)
+selectCodeEditor(PAResourceItoN.LogMonitor_MONITOR, 258, 98); // n:bI (JPanel:JComponent, cg:JFrame)
+// [GUI Memory]: 94 MB (+10611kb) [00:02:01]
+// Elapsed time: 11 seconds
+selectCodeEditor(PAResourceItoN.LogMonitor_MONITOR, 436, 99, false, false, false, true, false); // n:bI (JPanel:JComponent, cg:JFrame) - Popup Trigger
+// [GUI Memory]: 100 MB (+1800kb) [00:02:07]
+selectMenuItem(PAResourceItoN.LogMonitor_COPY, "Copy"); // ac:JMenuItem (ai:JPopupMenu, Popup:JWindow)
+// Elapsed time: 80 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd), system (system.v), myLed_0 : system_myLed_0_0 (system_myLed_0_0.xci)]", 19, false, false, false, false, true, false); // B:i (D:JPanel, cg:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE, "Re-customize IP..."); // ac:JMenuItem (ai:JPopupMenu, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// HOptionPane Warning: ''system_myLed_0_0.xci' IP is part of a block design. Please use the block design 'system' to customize the IP. (Re-customize IP)'
+selectButton("PAResourceQtoS.RecustomizeCore_THIS_IP_PART_OF_BLOCK_DESIGN_OK", "OK"); // JButton:AbstractButton (JPanel:JComponent, G:JDialog)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, system_top (system_top.v), i_system_wrapper : system_wrapper (system_wrapper.v), system_i : system (system.bd), system (system.v), myLed_0 : system_myLed_0_0 (system_myLed_0_0.xci)]", 19, false, false, false, false, true, false); // B:i (D:JPanel, cg:JFrame) - Popup Trigger
+selectMenuItem(PAResourceCommand.PACommandNames_EDIT_IN_IP_PACKAGER, "Edit in IP Packager"); // ac:JMenuItem (ai:JPopupMenu, cg:JFrame)
+// Run Command: PAResourceCommand.PACommandNames_EDIT_IN_IP_PACKAGER
+// k:p (cg:JFrame): Edit in IP Packager: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, k:p)
+// bs:g (cg:JFrame):  Edit in IP Packager : addNotify
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_ADD
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_NEW
+// Tcl Message: ipx::edit_ip_in_project -upgrade true -name myLed_v1_0_v1_0_project -directory /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.tmp/myLed_v1_0_v1_0_project /home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/ip_repo/myLed_1.0/component.xml 
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2017.1/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 5,228 MB. GUI used memory: 65 MB. Current time: 5/20/17 1:31:35 PM JST
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/ip_repo/myLed_1.0'. 
+// TclEventType: RSB_BITABEN_IPREPODATA_REFRESH
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PACKAGER_CURRENT_CORE
+// Run Command: PAResourceCommand.PACommandNames_IP_PACKAGER
+// Tcl Message: INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/library'. INFO: [IP_Flow 19-795] Syncing license key meta-data INFO: [IP_Flow 19-793] Syncing display name meta-data INFO: [IP_Flow 19-798] Syncing taxonomy meta-data 
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_MESSAGE_UPDATE
+// Tcl Message: ipx::edit_ip_in_project: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 6266.992 ; gain = 42.031 ; free physical = 1087 ; free virtual = 6617 
+// 'i' command handler elapsed time: 12 seconds
+// TclEventType: DG_ANALYSIS_MSG_RESET
+dismissDialog("Edit in IP Packager"); // bs:g (cg:JFrame)
+// TclEventType: DG_GRAPH_GENERATED
+// [GUI Memory]: 107 MB (+1646kb) [00:03:49]
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 10 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, myLed_v1_0 (myLed_v1_0.v)]", 1); // B:i (D:JPanel, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_WINDOW, "Window"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_TOOLS, "Tools"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_SETTINGS, "Settings"); // Z:JMenu (JPopupMenu:JComponent, cg:JFrame)
+selectMenu(PAResourceCommand.PACommandNames_SIMULATION_RUN, "Run Simulation"); // U:JideMenu (JPopupMenu:JComponent, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_SETTINGS, "Settings"); // Z:JMenu (JPopupMenu:JComponent, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_FLOW, "Flow"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_EDIT, "Edit"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_OPEN_RECENT_FILE, "Open Recent File"); // Z:JMenu (JPopupMenu:JComponent, cg:JFrame)
+selectMenu(PAResourceItoN.MainMenuMgr_EXPORT, "Export"); // Z:JMenu (JPopupMenu:JComponent, cg:JFrame)
+dismissMenu(PAResourceItoN.MainMenuMgr_FILE, "File"); // U:JideMenu (CommandMenuBar:CommandBar, cg:JFrame)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 13, true); // u:M (JViewport:JComponent, cg:JFrame) - Node
+// Run Command: PAResourceCommand.PACommandNames_GOTO_RTL_DESIGN
+// x:aN (cg:JFrame): Elaborate Design: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a:JButton (JPanel:JComponent, x:aN)
+dismissDialog("Elaborate Design"); // x:aN (cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Compatibility", 1); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "File Groups", 2); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Customization Parameters", 3); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Ports and Interfaces", 4); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Addressing and Memory", 5); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Customization GUI", 6); // an:k (JViewport:JComponent, cg:JFrame)
+selectList(PAResourceOtoP.PackagerStepsPanel_PACKAGER_STEPS_LIST, "Review and Package", 7); // an:k (JViewport:JComponent, cg:JFrame)
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ac:JMenuItem (ai:JPopupMenu, cg:JFrame)
+// [GUI Memory]: 113 MB (+133kb) [00:04:49]
+// Elapsed time: 44 seconds
+closeMainWindow("myLed_v1_0_v1_0_project - [/home/msyksphinz/work/fpga_designs/zedboard_hdl_201701/projects/adv7511/zed/adv7511_zed.tmp/myLed_v1_0_v1_0_project/myLed_v1_0_v1_0_project.xpr] - Vivado 2017.1"); // cg:JFrame
+// Run Command: PAResourceCommand.PACommandNames_CLOSE_PROJECT
+// x:aN (cg:JFrame): Close Project: addNotify
+selectCheckBox(RDIResource.MessageWithOptionDialog_DONT_SHOW_THIS_DIALOG_AGAIN, "Don't show this dialog again", false); // g:JCheckBox (JPanel:JComponent, x:aN): FALSE
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a:JButton (JPanel:JComponent, x:aN)
+// bs:g (cg:JFrame):  Close Project : addNotify
+dismissDialog("Close Project"); // x:aN (cg:JFrame)
+// TclEventType: PROJECT_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 5,256 MB. GUI used memory: 66 MB. Current time: 5/20/17 1:33:13 PM JST
+// Tcl Message: close_project 
