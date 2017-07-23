@@ -10,3 +10,6 @@
 [submodule "Linux-Digilent-Dev"]
 	path = Linux-Digilent-Dev
 	url = https://github.com/DigilentInc/Linux-Digilent-Dev.git
+[submodule "Arty-Z7"]
+	path = Arty-Z7
+	url = https://github.com/Digilent/Arty-Z7.git
