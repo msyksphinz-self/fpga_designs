@@ -44,7 +44,7 @@ module blockram_test_v1_0 #
 	output wire 								s_axi_awready,
 	input wire [C_S00_AXI_DATA_WIDTH-1 : 0] 	s_axi_wdata,
 	input wire [(C_S00_AXI_DATA_WIDTH/8)-1 : 0] s_axi_wstrb,
-	input wire 									s00_axi_wlast,
+	input wire 									s_axi_wlast,
 	input wire [C_S00_AXI_WUSER_WIDTH-1 : 0] 	s_axi_wuser,
 	input wire 									s_axi_wvalid,
 	output wire 								s_axi_wready,
