@@ -16,13 +16,13 @@ adi_project_run adv7511_zed
 # Add IPs
 update_compile_order -fileset sources_1
 open_bd_design {./adv7511_zed.srcs/sources_1/bd/system/system.bd}
-update_ip_catalog -rebuild -repo_path ./../../../../ip/blockram_test_1.0
+update_ip_catalog -rebuild
 startgroup
-create_bd_cell -type ip -vlnv user.org:user:blockram_test:1.0 blockram_test_0
+create_bd_cell -type ip -vlnv analog.com:user:blockram_test_v1_0:1.0 blockram_test_0
 endgroup
 apply_bd_automation -rule xilinx.com:bd_rule:axi4 \
 	-config {Master "/sys_ps7/M_AXI_GP0" intc_ip "Auto" Clk_xbar "Auto" Clk_master "Auto" Clk_slave "Auto" }  \
-	[get_bd_intf_pins blockram_test_0/S00_AXI]
+	[get_bd_intf_pins blockram_test_0/S_AXI]
 regenerate_bd_layout
 reset_run synth_1
 reset_run system_xbar_0_synth_1
