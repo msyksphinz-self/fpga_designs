@@ -38,11 +38,11 @@ M_FLIST += *.ip_user_files
 
 
 
-.PHONY: all lib clean clean-all
-all: lib adv7511_zed.sdk/system_top.hdf
+.PHONY: all lib fsbl clean_fsbl bootgen hdf clean clean-all
+all: lib boot.bin
 
 
-clean: 
+clean:
 	rm -rf $(M_FLIST)
 
 
@@ -54,10 +54,23 @@ clean-all:clean
 	make -C ../../../library/util_i2c_mixer clean
 
 
-adv7511_zed.sdk/system_top.hdf: $(M_DEPS)
+adv7511_zed.xpr: $(M_DEPS)
 	-rm -rf $(M_FLIST)
-	$(M_VIVADO) system_project.tcl >> adv7511_zed_vivado.log 2>&1
+	$(M_VIVADO) system_project.tcl > adv7511_zed_vivado.log 2>&1
 
+
+adv7511_zed.sdk/system_top_hw_platform_0/system_top.hdf: adv7511_zed.xpr
+	$(M_VIVADO) create_hdf.tcl > adv7511_zed_hdf.log 2>&1
+
+boot.bin: adv7511_zed.sdk/fsbl/Debug/fsbl.elf
+	-rm -rf $@
+	bootgen -image ./boot.bif -o i $@
+
+adv7511_zed.sdk/fsbl/Debug/fsbl.elf: adv7511_zed.sdk/system_top_hw_platform_0/system_top.hdf
+	xsdk -batch -source ./create_fsbl.tcl
+
+clean_fsbl:
+	rm -rf adv7511_zed.sdk
 
 lib:
 	make -C ../../../library/axi_clkgen

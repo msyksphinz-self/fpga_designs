@@ -1,5 +1,4 @@
-
-
+set project_name adv7511_zed
 
 source ../../scripts/adi_env.tcl
 source $ad_hdl_dir/projects/scripts/adi_project.tcl
@@ -29,3 +28,4 @@ reset_run system_xbar_0_synth_1
 launch_runs impl_1 -to_step write_bitstream -jobs 2
 wait_on_run impl_1
 save_bd_design
+

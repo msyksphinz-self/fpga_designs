@@ -13,3 +13,6 @@
 [submodule "Arty-Z7"]
 	path = Arty-Z7
 	url = https://github.com/Digilent/Arty-Z7.git
+[submodule "device-tree-xlnx"]
+	path = device-tree-xlnx
+	url = https://github.com/Xilinx/device-tree-xlnx.git
