@@ -11,7 +11,8 @@ if { [file exists [file join $sdk_workspace $hw_name]] == 0 } {
     file mkdir [file join $sdk_workspace $hw_name]
 }
 set design_top_name [get_property "top" [current_fileset]]
-file copy -force [file join $project_directory $project_name.runs "impl_1" $design_top_name.sysdef] [file join $sdk_workspace $hw_name $design_top_name.hdf]
+file copy -force [file join $project_directory $project_name.runs "impl_1" $design_top_name.sysdef] \
+	[file join $sdk_workspace $hw_name $design_top_name.hdf]
 
 close_project
 

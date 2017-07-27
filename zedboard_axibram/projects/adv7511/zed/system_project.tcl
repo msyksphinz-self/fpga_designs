@@ -10,6 +10,7 @@ adi_project_files adv7511_zed [list \
   "$ad_hdl_dir/projects/common/zed/zed_system_constr.xdc" \
   "$ad_hdl_dir/library/xilinx/common/ad_iobuf.v"]
 
+# Run Project
 adi_project_run adv7511_zed
 
 # Add IPs
@@ -23,9 +24,13 @@ apply_bd_automation -rule xilinx.com:bd_rule:axi4 \
 	-config {Master "/sys_ps7/M_AXI_GP0" intc_ip "Auto" Clk_xbar "Auto" Clk_master "Auto" Clk_slave "Auto" }  \
 	[get_bd_intf_pins blockram_test_0/S_AXI]
 regenerate_bd_layout
-reset_run synth_1
-reset_run system_xbar_0_synth_1
-launch_runs impl_1 -to_step write_bitstream -jobs 2
-wait_on_run impl_1
-save_bd_design
+
+# reset_run synth_1
+# reset_run system_xbar_0_synth_1
+# launch_runs impl_1 -to_step write_bitstream -jobs 2
+# wait_on_run impl_1
+# save_bd_design
+
+# Run Project
+adi_project_run adv7511_zed
 
