@@ -516,97 +516,123 @@ module blockram_test_v1_0_S00_AXI #
   // is deasserted on reset (active low). axi_rresp and axi_rdata are
   // cleared to zero on reset (active low).
 
-  always @( posedge S_AXI_ACLK )
-	begin
-	  if ( S_AXI_ARESETN == 1'b0 )
-	    begin
-	      axi_rvalid <= 0;
-	      axi_rresp  <= 0;
-	    end
-	  else
-	    begin
-	      if (axi_arv_arr_flag && ~axi_rvalid)
-	        begin
-	          axi_rvalid <= 1'b1;
-	          axi_rresp  <= 2'b0;
-	          // 'OKAY' response
-	        end
-	      else if (axi_rvalid && S_AXI_RREADY)
-	        begin
-	          axi_rvalid <= 1'b0;
-	        end
-	    end
-	end
+// always @( posedge S_AXI_ACLK )
+//   begin
+//     if ( S_AXI_ARESETN == 1'b0 )
+//       begin
+//         axi_rvalid <= 0;
+//         axi_rresp  <= 0;
+//       end
+//     else
+//       begin
+//         if (axi_arv_arr_flag && ~axi_rvalid)
+//           begin
+//             axi_rvalid <= 1'b1;
+//             axi_rresp  <= 2'b0;
+//             // 'OKAY' response
+//           end
+//         else if (axi_rvalid && S_AXI_RREADY)
+//           begin
+//             axi_rvalid <= 1'b0;
+//           end
+//       end
+//   end
   // ------------------------------------------
   // -- Example code to access user logic memory region
   // ------------------------------------------
 
-  generate
-	if (USER_NUM_MEM >= 1)
-	  begin
-	    assign mem_select  = 1;
-	    assign mem_address = (axi_arv_arr_flag? axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]:(axi_awv_awr_flag? axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]:0));
-	  end
-  endgenerate
-
-  // implement Block RAM(s)
-  generate
-	for(i=0; i<= USER_NUM_MEM-1; i=i+1)
-	  begin:BRAM_GEN
-	    wire mem_rden;
-	    wire mem_wren;
-
-	    assign mem_wren = axi_wready && S_AXI_WVALID ;
-
-	    assign mem_rden = axi_arv_arr_flag ; //& ~axi_rvalid
-
-	    for(mem_byte_index=0; mem_byte_index<= (C_S_AXI_DATA_WIDTH/8-1); mem_byte_index=mem_byte_index+1)
-	      begin:BYTE_BRAM_GEN
-	        wire [8-1:0] data_in ;
-	        wire [8-1:0] data_out;
-	        reg [8-1:0]  byte_ram [0 : 15];
-	        integer      j;
-
-	        //assigning 8 bit data
-	        assign data_in  = S_AXI_WDATA[(mem_byte_index*8+7) -: 8];
-	        assign data_out = byte_ram[mem_address];
-
-	        always @( posedge S_AXI_ACLK )
-	          begin
-	            if (mem_wren && S_AXI_WSTRB[mem_byte_index])
-	              begin
-	                byte_ram[mem_address] <= data_in;
-	              end
-	          end
-
-	        always @( posedge S_AXI_ACLK )
-	          begin
-	            if (mem_rden)
-	              begin
-	                mem_data_out[i][(mem_byte_index*8+7) -: 8] <= data_out;
-	              end
-	          end
-
-	      end
-	  end
-  endgenerate
+  // generate
+  //   if (USER_NUM_MEM >= 1)
+  //     begin
+  //       assign mem_select  = 1;
+  //       assign mem_address = (axi_arv_arr_flag? axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]:(axi_awv_awr_flag? axi_awaddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB]:0));
+  //     end
+  // endgenerate
+  //
+  // // implement Block RAM(s)
+  // generate
+  //   for(i=0; i<= USER_NUM_MEM-1; i=i+1)
+  //     begin:BRAM_GEN
+  //       wire mem_rden;
+  //       wire mem_wren;
+  //
+  //       assign mem_wren = axi_wready && S_AXI_WVALID ;
+  //
+  //       assign mem_rden = axi_arv_arr_flag ; //& ~axi_rvalid
+  //
+  //       for(mem_byte_index=0; mem_byte_index<= (C_S_AXI_DATA_WIDTH/8-1); mem_byte_index=mem_byte_index+1)
+  //         begin:BYTE_BRAM_GEN
+  //           wire [8-1:0] data_in ;
+  //           wire [8-1:0] data_out;
+  //           reg [8-1:0]  byte_ram [0 : 15];
+  //           integer      j;
+  //
+  //           //assigning 8 bit data
+  //           assign data_in  = S_AXI_WDATA[(mem_byte_index*8+7) -: 8];
+  //           assign data_out = byte_ram[mem_address];
+  //
+  //           always @( posedge S_AXI_ACLK )
+  //             begin
+  //               if (mem_wren && S_AXI_WSTRB[mem_byte_index])
+  //                 begin
+  //                   byte_ram[mem_address] <= data_in;
+  //                 end
+  //             end
+  //
+  //           always @( posedge S_AXI_ACLK )
+  //             begin
+  //               if (mem_rden)
+  //                 begin
+  //                   mem_data_out[i][(mem_byte_index*8+7) -: 8] <= data_out;
+  //                 end
+  //             end
+  //
+  //         end
+  //     end
+  // endgenerate
   //Output register or memory read data
 
-  always @( mem_data_out, axi_rvalid)
-	begin
-	  if (axi_rvalid)
-	    begin
-	      // Read address mux
-	      axi_rdata <= mem_data_out[0];
-	    end
-	  else
-	    begin
-	      axi_rdata <= 32'h00000000;
-	    end
-	end
+  // always @( mem_data_out, axi_rvalid)
+  //   begin
+  //     if (axi_rvalid)
+  //       begin
+  //         // Read address mux
+  //         axi_rdata <= mem_data_out[0];
+  //       end
+  //     else
+  //       begin
+  //         axi_rdata <= 32'h00000000;
+  //       end
+  //   end
 
   // Add user logic here
+  reg [C_S_AXI_DATA_WIDTH-1:0]               mem_ram[1024-1: 0];
+  wire                                       mem_wren, mem_rdenn;
+  assign mem_wren = axi_wready && S_AXI_WVALID ;
+  assign mem_rden = axi_arv_arr_flag ; //& ~axi_rvalid
+  always @ (posedge S_AXI_ACLK) begin
+    mem_ram [axi_awaddr[11: 2]] <= S_AXI_WDATA[31: 0];
+  end
 
-  // User logic ends
+  always @ (posedge S_AXI_ACLK) begin
+    if (!S_AXI_RESETN) begin
+      axi_rdata <= 32'h0;
+
+      axi_rvalid <= 0;
+	  axi_rresp  <= 0;
+    end else begin
+	  if (axi_arv_arr_flag && ~axi_rvalid) begin
+	    axi_rvalid <= 1'b1;
+	    axi_rresp  <= 2'b0;
+	    // 'OKAY' response
+
+        axi_rdata <= mem_ram [axi_araddr[11: 2]];
+	  end else if (axi_rvalid && S_AXI_RREADY) begin
+	    axi_rvalid <= 1'b0;
+	  end
+    end // else: !if(!S_AXI_RESETN)
+  end // always @ (posedge S_AXI_ACLK)
+
+   // User logic ends
 
 endmodule // blockram_test_v1_0_S00_AXI
