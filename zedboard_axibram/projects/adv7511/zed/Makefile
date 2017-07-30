@@ -38,7 +38,7 @@ M_FLIST += *.ip_user_files
 
 
 
-.PHONY: all lib fsbl clean_fsbl bootgen hdf clean clean-all
+.PHONY: all lib fsbl clean_fsbl bootgen hdf zed_project clean clean-all 
 all: lib boot.bin
 
 
@@ -71,6 +71,12 @@ adv7511_zed.sdk/fsbl/Debug/fsbl.elf: adv7511_zed.sdk/system_top_hw_platform_0/sy
 
 clean_fsbl:
 	rm -rf adv7511_zed.sdk
+
+impl: zed_project
+	$(M_VIVADO) implementation.tcl > adv7511_impl_zed_hdf.log 2>&1
+
+zed_project:
+	$(M_VIVADO) create_project.tcl > adv7511_create_zed_hdf.log 2>&1
 
 lib:
 	make -C ../../../library/axi_clkgen
