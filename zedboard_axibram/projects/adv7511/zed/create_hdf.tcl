@@ -1,6 +1,6 @@
 set project_directory   [file dirname [info script]]
 set hw_name             "system_top_hw_platform_0"
-set project_name adv7511_zed
+set project_name        "project"
 
 open_project [file join $project_directory $project_name]
 
@@ -15,5 +15,3 @@ file copy -force [file join $project_directory $project_name.runs "impl_1" $desi
 	[file join $sdk_workspace $hw_name $design_top_name.hdf]
 
 close_project
-
-

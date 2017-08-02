@@ -80,6 +80,11 @@ create_bd_port -dir I -type intr ps_intr_10
 create_bd_port -dir I -type intr ps_intr_12
 create_bd_port -dir I -type intr ps_intr_13
 
+# BlockRAM design
+
+set axi_blockram [create_bd_cell -type ip -vlnv analog.com:user:axi_blockram:1.0 axi_blockram]
+set_property -dict [list CONFIG.c_m_axi_mm2s_id_width {0} CONFIG.c_m_axi_s2mm_id_width {0}] $axi_blockram
+
 # instance: sys_ps7
 
 set sys_ps7  [create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 sys_ps7]
@@ -167,6 +172,7 @@ ad_connect  gpio_t        sys_ps7/GPIO_T
 ad_connect  fixed_io      sys_ps7/FIXED_IO
 ad_connect  iic_fmc       axi_iic_fmc/iic
 ad_connect  sys_200m_clk  axi_hdmi_clkgen/clk
+ad_connect  sys_200m_clk  axi_blockram/clk
 
 ad_connect  axi_iic_main/IIC sys_i2c_mixer/upstream
 
@@ -279,5 +285,6 @@ ad_cpu_interconnect 0x70e00000 axi_hdmi_core
 ad_cpu_interconnect 0x75c00000 axi_spdif_tx_core
 ad_cpu_interconnect 0x77600000 axi_i2s_adi
 ad_cpu_interconnect 0x41620000 axi_iic_fmc
+ad_cpu_interconnect 0x43c00000 axi_blockram
 ad_mem_hp0_interconnect sys_cpu_clk sys_ps7/S_AXI_HP0
 ad_mem_hp0_interconnect sys_cpu_clk axi_hdmi_dma/M_AXI_MM2S

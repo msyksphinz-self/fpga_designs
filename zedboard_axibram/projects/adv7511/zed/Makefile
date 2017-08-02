@@ -35,10 +35,11 @@ M_FLIST += *.hw
 M_FLIST += *.sim
 M_FLIST += .Xil
 M_FLIST += *.ip_user_files
+M_FLIST += *.str
+M_FLIST += *.rpt
 
 
-
-.PHONY: all lib fsbl clean_fsbl bootgen hdf zed_project clean clean-all 
+.PHONY: all lib fsbl clean_fsbl bootgen hdf zed_project zed_impl clean clean-all
 all: lib boot.bin
 
 
@@ -54,29 +55,23 @@ clean-all:clean
 	make -C ../../../library/util_i2c_mixer clean
 
 
-adv7511_zed.xpr: $(M_DEPS)
-	-rm -rf $(M_FLIST)
-	$(M_VIVADO) system_project.tcl > adv7511_zed_vivado.log 2>&1
-
-
-adv7511_zed.sdk/system_top_hw_platform_0/system.hdf: adv7511_zed.xpr
-	$(M_VIVADO) create_hdf.tcl > adv7511_zed_hdf.log 2>&1
-
-boot.bin: adv7511_zed.sdk/fsbl/Debug/fsbl.elf
+boot.bin: project.sdk/fsbl/Debug/fsbl.elf
 	-rm -rf $@
 	bootgen -image ./boot.bif -o i $@
 
-adv7511_zed.sdk/fsbl/Debug/fsbl.elf: adv7511_zed.sdk/system_top_hw_platform_0/system.hdf
+project.sdk/fsbl/Debug/fsbl.elf: project.sdk/system_top_hw_platform_0/system.hdf
 	xsdk -batch -source ./create_fsbl.tcl
 
+project.sdk/system_top_hw_platform_0/system.hdf: project.xpr
+	$(M_VIVADO) create_hdf.tcl > adv7511_zed_hdf.log 2>&1
+
+project.xpr: create_project.tcl implementation.tcl $(M_DEPS)
+	$(M_VIVADO) create_project.tcl > create_project.log 2>&1
+	$(M_VIVADO) implementation.tcl > implementation.log 2>&1
+
+
 clean_fsbl:
-	rm -rf adv7511_zed.sdk
-
-impl: zed_project
-	$(M_VIVADO) implementation.tcl > adv7511_impl_zed_hdf.log 2>&1
-
-zed_project:
-	$(M_VIVADO) create_project.tcl > adv7511_create_zed_hdf.log 2>&1
+	rm -rf project.sdk
 
 lib:
 	make -C ../../../library/axi_clkgen

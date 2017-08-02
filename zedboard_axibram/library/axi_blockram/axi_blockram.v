@@ -93,7 +93,7 @@ module axi_blockram
   wire              up_wack_s;
   wire              up_rreq_s;
   wire [13: 0]      up_raddr_s;
-  reg [31: 0]      up_rdata_s;
+  wire [31: 0]      up_rdata_s;
   reg              up_rack_s;
 
 
@@ -136,18 +136,27 @@ module axi_blockram
 
   assign up_wack_s = 1'b1;
 
-  always @ (posedge clk) begin
-    if (up_wreq_s) begin
+  wire            w_blockram_req;
+  assign w_blockram_req = (up_waddr_s != 14'h0) & up_wreq_s;
+
+  always @ (posedge s_axi_aclk) begin
+    if (w_blockram_req) begin
       reg_mem[up_waddr_s[9:0]] <= up_wdata_s[31: 0];
     end
   end
 
-  always @ (posedge clk) begin
-    up_rack_s  <= up_rreq_s;
-    up_rdata_s <= reg_mem[up_raddr_s[9:0]];
+  reg [31: 0]  blockram_rdata;
+  reg [13: 0]  up_raddr_s2;
+
+  always @ (posedge s_axi_aclk) begin
+    up_rack_s      <= up_rreq_s;
+    blockram_rdata <= reg_mem[up_raddr_s[9:0]];
   end
 
-endmodule
+  always @ (posedge s_axi_aclk) begin
+    up_raddr_s2 <= up_raddr_s;
+  end
 
-// ***************************************************************************
-// ***************************************************************************
+  assign up_rdata_s = (up_raddr_s2 == 14'h0) ? 32'hdeadbeef : blockram_rdata;
+
+endmodule // axi_blockram

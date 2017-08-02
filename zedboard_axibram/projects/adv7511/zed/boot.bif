@@ -1,0 +1,5 @@
+image : {
+	[bootloader]./project.sdk/fsbl/Debug/fsbl.elf
+	./project.sdk/system_top_hw_platform_0/system_top.bit
+	../../../../u-boot-xlnx/u-boot.elf
+}
