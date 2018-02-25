@@ -1,8 +1,12 @@
 base_dir = $(abspath ..)
+src_path := src/main/scala
+default_submodules := . chisel3
+
 generated_dir = $(abspath ./generated-src)
 generated_dir_debug = $(abspath ./generated-src-debug)
 sim_dir = .
 output_dir = $(sim_dir)/output
+chisel_srcs := $(foreach submodule,$(default_submodules) $(ROCKETCHIP_ADDONS),$(shell find $(base_dir)/$(submodule)/$(src_path) -name "*.scala"))
 
 emu = emulator-$(PROJECT)-$(CONFIG)
 emu_debug = emulator-$(PROJECT)-$(CONFIG)-debug
