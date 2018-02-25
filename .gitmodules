@@ -19,3 +19,6 @@
 [submodule "risc-v/tilelink/firrtl"]
 	path = risc-v/tilelink/firrtl
 	url = https://github.com/ucb-bar/firrtl.git
+[submodule "risc-v/tilelink/chisel3"]
+	path = risc-v/tilelink/chisel3
+	url = https://github.com/ucb-bar/chisel3.git
