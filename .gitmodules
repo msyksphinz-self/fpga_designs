@@ -16,3 +16,6 @@
 [submodule "device-tree-xlnx"]
 	path = device-tree-xlnx
 	url = https://github.com/Xilinx/device-tree-xlnx.git
+[submodule "risc-v/tilelink/firrtl"]
+	path = risc-v/tilelink/firrtl
+	url = https://github.com/ucb-bar/firrtl.git
