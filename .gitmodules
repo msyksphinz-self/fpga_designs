@@ -22,3 +22,6 @@
 [submodule "risc-v/tilelink/chisel3"]
 	path = risc-v/tilelink/chisel3
 	url = https://github.com/ucb-bar/chisel3.git
+[submodule "risc-v/tilelink/riscv-torture"]
+	path = risc-v/tilelink/riscv-torture
+	url = https://github.com/ucb-bar/riscv-torture.git
