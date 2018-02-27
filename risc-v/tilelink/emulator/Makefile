@@ -1,6 +1,6 @@
 base_dir = $(abspath ..)
 src_path := src/main/scala
-default_submodules := . chisel3
+default_submodules := . chisel3 firrtl
 
 generated_dir = $(abspath ./generated-src)
 generated_dir_debug = $(abspath ./generated-src-debug)
