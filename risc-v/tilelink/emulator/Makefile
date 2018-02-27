@@ -1,6 +1,4 @@
 base_dir = $(abspath ..)
-src_path := src/main/scala
-default_submodules := . chisel3 
 
 generated_dir = $(abspath ./generated-src)
 generated_dir_debug = $(abspath ./generated-src-debug)
@@ -45,10 +43,8 @@ $(emu): $(verilog) $(cppfiles) $(headers) $(INSTALLED_VERILATOR)
 	$(MAKE) VM_PARALLEL_BUILDS=1 -C $(generated_dir)/$(long_name) -f V$(MODEL).mk
 
 $(generated_dir)/%.fir $(generated_dir)/%.d: $(FIRRTL_JAR) $(chisel_srcs) $(bootrom_img)
-
-
-#	mkdir -p $(dir $@)
-#	cd $(base_dir) && $(SBT) "runMain $(PROJECT).Generator $(generated_dir) $(PROJECT) $(MODEL) $(CFG_PROJECT) $(CONFIG)"
+	mkdir -p $(dir $@)
+	cd $(base_dir) && $(SBT) "runMain $(PROJECT).Generator $(generated_dir) $(PROJECT) $(MODEL) $(CFG_PROJECT) $(CONFIG)"
 
 %.v %.conf: %.fir $(FIRRTL_JAR)
 	mkdir -p $(dir $@)
