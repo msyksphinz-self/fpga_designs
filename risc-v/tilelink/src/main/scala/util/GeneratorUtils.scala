@@ -6,7 +6,7 @@ import Chisel._
 import chisel3.internal.firrtl.Circuit
 import chisel3.experimental.{RawModule}
 // TODO: better job of Makefrag generation for non-RocketChip testing platforms
-import freechips.rocketchip.system.{TestGeneration, DefaultTestSuites}
+// import freechips.rocketchip.system.{TestGeneration, DefaultTestSuites}
 import freechips.rocketchip.config._
 import freechips.rocketchip.diplomacy.LazyModule
 import java.io.{File, FileWriter}
@@ -106,16 +106,18 @@ trait GeneratorApp extends App with HasGeneratorUtilities {
   }
 
   /** Output software test Makefrags, which provide targets for integration testing. */
-  def generateTestSuiteMakefrags {
-    addTestSuites
-    writeOutputFile(td, s"$longName.d", TestGeneration.generateMakefrag) // Coreplex-specific test suites
-  }
-
-  def addTestSuites {
-    TestGeneration.addSuite(DefaultTestSuites.groundtest64("p"))
-    TestGeneration.addSuite(DefaultTestSuites.emptyBmarks)
-    TestGeneration.addSuite(DefaultTestSuites.singleRegression)
-  } 
+  /*
+   * def generateTestSuiteMakefrags {
+   *   addTestSuites
+   *   writeOutputFile(td, s"$longName.d", TestGeneration.generateMakefrag) // Coreplex-specific test suites
+   * }
+   * 
+   * def addTestSuites {
+   *   TestGeneration.addSuite(DefaultTestSuites.groundtest64("p"))
+   *   TestGeneration.addSuite(DefaultTestSuites.emptyBmarks)
+   *   TestGeneration.addSuite(DefaultTestSuites.singleRegression)
+   * } 
+   */
 
   def generateROMs {
     writeOutputFile(td, s"$longName.rom.conf", enumerateROMs(circuit))

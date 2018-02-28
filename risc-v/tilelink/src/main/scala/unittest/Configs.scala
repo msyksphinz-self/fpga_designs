@@ -3,12 +3,12 @@
 package freechips.rocketchip.unittest
 
 import Chisel._
-import freechips.rocketchip.amba.ahb._
-import freechips.rocketchip.amba.apb._
-import freechips.rocketchip.amba.axi4._
+// import freechips.rocketchip.amba.ahb._
+// import freechips.rocketchip.amba.apb._
+// import freechips.rocketchip.amba.axi4._
 import freechips.rocketchip.config._
-import freechips.rocketchip.coreplex.{BaseCoreplexConfig}
-import freechips.rocketchip.devices.tilelink._
+// import freechips.rocketchip.coreplex.{BaseCoreplexConfig}
+// import freechips.rocketchip.devices.tilelink._
 import freechips.rocketchip.tilelink._
 
 case object TestDurationMultiplier extends Field[Int]
@@ -17,6 +17,7 @@ class WithTestDuration(x: Int) extends Config((site, here, up) => {
   case TestDurationMultiplier => x
 })
 
+/*
 class WithAMBAUnitTests extends Config((site, here, up) => {
   case UnitTests => (q: Parameters) => {
     implicit val p = q
@@ -34,6 +35,7 @@ class WithAMBAUnitTests extends Config((site, here, up) => {
       Module(new AXI4XbarTest(       txns=1*txns, timeout=timeout)),
       Module(new AXI4RAMAsyncCrossingTest(txns=3*txns, timeout=timeout))) }
 })
+*/
 
 class WithTLSimpleUnitTests extends Config((site, here, up) => {
   case UnitTests => (q: Parameters) => {
@@ -44,12 +46,12 @@ class WithTLSimpleUnitTests extends Config((site, here, up) => {
       Module(new TLRAMSimpleTest(1,        txns=15*txns, timeout=timeout)),
       Module(new TLRAMSimpleTest(4,        txns=15*txns, timeout=timeout)),
       Module(new TLRAMSimpleTest(16,       txns=15*txns, timeout=timeout)),
-      Module(new TLRAMZeroDelayTest(4,     txns=15*txns, timeout=timeout)),
+      /* Module(new TLRAMZeroDelayTest(4,     txns=15*txns, timeout=timeout)), */
       Module(new TLFuzzRAMTest(            txns= 3*txns, timeout=timeout)),
       Module(new TLRR0Test(                txns= 3*txns, timeout=timeout)),
       Module(new TLRR1Test(                txns= 3*txns, timeout=timeout)),
       Module(new TLRAMRationalCrossingTest(txns= 3*txns, timeout=timeout)),
-      Module(new TLRAMAsyncCrossingTest(   txns= 5*txns, timeout=timeout)),
+      /* Module(new TLRAMAsyncCrossingTest(   txns= 5*txns, timeout=timeout)), */
       Module(new TLRAMAtomicAutomataTest(  txns=10*txns, timeout=timeout)) ) }
 })
 
@@ -79,7 +81,7 @@ class WithTLXbarUnitTests extends Config((site, here, up) => {
       Module(new TLMulticlientXbarTest(4,4, txns=2*txns, timeout=timeout)) ) }
 })
 
-class AMBAUnitTestConfig extends Config(new WithAMBAUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
-class TLSimpleUnitTestConfig extends Config(new WithTLSimpleUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
-class TLWidthUnitTestConfig extends Config(new WithTLWidthUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
-class TLXbarUnitTestConfig extends Config(new WithTLXbarUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
+// class AMBAUnitTestConfig extends Config(new WithAMBAUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
+// class TLSimpleUnitTestConfig extends Config(new WithTLSimpleUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
+// class TLWidthUnitTestConfig extends Config(new WithTLWidthUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)
+// class TLXbarUnitTestConfig extends Config(new WithTLXbarUnitTests ++ new WithTestDuration(10) ++ new BaseCoreplexConfig)

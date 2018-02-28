@@ -6,6 +6,6 @@ object Generator extends freechips.rocketchip.util.GeneratorApp {
   val longName = names.topModuleProject + "." + names.configs
   generateFirrtl
   generateAnno
-  generateTestSuiteMakefrags // TODO: Needed only for legacy make targets
+  /* generateTestSuiteMakefrags */ // TODO: Needed only for legacy make targets
   generateArtefacts
 }
