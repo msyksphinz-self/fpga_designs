@@ -16,3 +16,6 @@
 [submodule "device-tree-xlnx"]
 	path = device-tree-xlnx
 	url = https://github.com/Xilinx/device-tree-xlnx.git
+[submodule "vivado_hls/qubit_simulator/quantum_simulator"]
+	path = vivado_hls/qubit_simulator/quantum_simulator
+	url = git@bitbucket.org:msyksphinz/quantum_simulator.git
