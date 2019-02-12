@@ -20,11 +20,45 @@ void cpu_hls (const uint32_t inst_mem[1024], uint32_t data_mem[1024])
 
     uint32_t reg_data;
 
-    uint8_t rs1 = u_rv32_cpu.get_rs1_addr (inst);
-    uint8_t rs2 = u_rv32_cpu.get_rs2_addr (inst);
-    uint8_t rd  = u_rv32_cpu.get_rd_addr  (inst);
+    RegAddr_t rs1 = u_rv32_cpu.get_rs1_addr (inst);
+    RegAddr_t rs2 = u_rv32_cpu.get_rs2_addr (inst);
+    RegAddr_t rd  = u_rv32_cpu.get_rd_addr  (inst);
+    uint16_t  csr_addr = (inst >> 16) & 0x0ffff;
 
     switch (dec_inst) {
+      case CSRRW  : {
+        reg_data = u_rv32_cpu.csrrw (csr_addr, rs1);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
+      case CSRRS  : {
+        reg_data = u_rv32_cpu.csrrs (csr_addr, rs1);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
+      case CSRRC  : {
+        reg_data = u_rv32_cpu.csrrc (csr_addr, rs1);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
+      case CSRRWI : {
+        XLEN_t zimm = (inst >> 15) & 0x1f;
+        reg_data = u_rv32_cpu.csrrw (csr_addr, zimm);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
+      case CSRRSI : {
+        XLEN_t zimm = (inst >> 15) & 0x1f;
+        reg_data = u_rv32_cpu.csrrs (csr_addr, zimm);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
+      case CSRRCI : {
+        XLEN_t zimm = (inst >> 15) & 0x1f;
+        reg_data = u_rv32_cpu.csrrc (csr_addr, zimm);
+        u_rv32_cpu.write_reg(rd, reg_data);
+        break;
+      }
       case LW  : {
         uint32_t addr = rs1 + ((inst >> 20) & 0xfff);
         reg_data = u_rv32_cpu.mem_access(LOAD, rs1, addr, data_mem);
@@ -42,9 +76,12 @@ void cpu_hls (const uint32_t inst_mem[1024], uint32_t data_mem[1024])
         u_rv32_cpu.mem_access(STORE, rs2, addr, data_mem);
         break;
       }
-      default  : break;
+      default  : {
+        break;
+      }
     }
-  } while (dec_inst == WFI);
+    addr += 4;
+  } while (dec_inst != WFI);
 
   return;
 }

@@ -1,8 +1,14 @@
+#pragma once
+
 #include <stdint.h>
 
+#include "rv32_basic.hpp"
+#include "rv32_csr.hpp"
+
 typedef enum {
-  LW = 0,
-  SW,
+  CSRRW , CSRRS , CSRRC ,
+  CSRRWI, CSRRSI, CSRRCI,
+  LW,  SW,
   ADD,
   NOP,
   WFI
@@ -14,12 +20,8 @@ typedef enum {
 } memtype_t;
 
 class rv32_cpu {
-  typedef uint32_t XLEN_t   ;
-  typedef uint8_t  RegAddr_t;
-  typedef uint32_t INST_t   ;
-
   XLEN_t m_reg32[32];
-
+  rv32_csr m_rv32_csr;
   uint32_t *m_data_mem;
 
 public:
@@ -45,5 +47,15 @@ public:
 
   void write_reg(RegAddr_t addr, XLEN_t data) {
     m_reg32[addr] = data;
+  }
+
+  XLEN_t csrrw (uint16_t addr, XLEN_t data) {
+    return m_rv32_csr.csrrw (addr, data);
+  }
+  XLEN_t csrrs (uint16_t addr, XLEN_t data) {
+    return m_rv32_csr.csrrs (addr, data);
+  }
+  XLEN_t csrrc (uint16_t addr, XLEN_t data) {
+    return m_rv32_csr.csrrc (addr, data);
   }
 };

@@ -14,7 +14,17 @@ inst_rv32_t rv32_cpu::decode_inst (uint32_t inst)
     case 0x03 : return LW;
     case 0x23 : return SW;
     case 0xff : return NOP;   //
-    default   : return NOP;
+    case 0x73 :
+      switch ((inst >> 12) & 0x07) {
+        case 0b001 : return CSRRW  ;
+        case 0b010 : return CSRRS  ;
+        case 0b011 : return CSRRC  ;
+        case 0b101 : return CSRRWI ;
+        case 0b110 : return CSRRSI ;
+        case 0b111 : return CSRRCI ;
+        default    : return NOP    ;
+      }
+    default   : return WFI;
   }
 }
 
