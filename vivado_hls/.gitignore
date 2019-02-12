@@ -1,0 +1,4 @@
+edge_filter/edge_filter
+cpu_hls/cpu_hls
+*/*.log
+*/*.jou
