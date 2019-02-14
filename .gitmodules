@@ -19,3 +19,6 @@
 [submodule "vivado_hls/qubit_simulator/quantum_simulator"]
 	path = vivado_hls/qubit_simulator/quantum_simulator
 	url = git@bitbucket.org:msyksphinz/quantum_simulator.git
+[submodule "vivado_hls/cpu_hls/riscv-tests"]
+	path = vivado_hls/cpu_hls/riscv-tests
+	url = https://github.com/riscv/riscv-tests.git
