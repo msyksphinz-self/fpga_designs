@@ -15,10 +15,12 @@ void cpu_hls (const uint32_t inst_mem[2048], uint32_t data_mem[2048])
 
   rv32_cpu u_rv32_cpu (data_mem);
 
+#ifndef __SYNTHESIS__
   FILE *cpu_log;
   if ((cpu_log = fopen("cpu.log", "w")) == NULL) {
     perror ("cpu.log");
   }
+#endif
 
   do {
     inst = inst_mem[pc >> 2];
@@ -26,7 +28,9 @@ void cpu_hls (const uint32_t inst_mem[2048], uint32_t data_mem[2048])
 
     uint32_t reg_data;
 
+#ifndef __SYNTHESIS__
     fprintf(cpu_log, "[%08x] : %08x DASM(%08x)\n", pc, inst, inst);
+#endif // _SYNTHESIS
 
     RegAddr_t rs1 = u_rv32_cpu.get_rs1_addr (inst);
     RegAddr_t rs2 = u_rv32_cpu.get_rs2_addr (inst);
