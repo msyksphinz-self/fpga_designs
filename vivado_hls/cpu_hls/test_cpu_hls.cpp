@@ -1,12 +1,25 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include "cpu_hls.h"
 
 int main ()
 {
-  uint32_t image_in[1024];
-  uint32_t image_out[1024];
-  cpu_hls (image_in, image_out);
+  uint32_t memory[2048];
+
+  FILE *fp;
+  if ((fp = fopen ("test.hex", "r")) == NULL) {
+    perror ("test.hex");
+    exit (1);
+  }
+
+  int idx = 0;
+  while (fscanf(fp, "%08x", &memory[idx]) != EOF) {
+    fprintf (stdout, "memory[%d] <= %08x\n", idx, memory[idx]);
+    idx ++;
+  }
+
+  cpu_hls (memory, memory);
 
 #ifdef C_SIMULATION
   // int x;

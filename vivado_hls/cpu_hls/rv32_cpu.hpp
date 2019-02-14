@@ -8,8 +8,12 @@
 typedef enum {
   CSRRW , CSRRS , CSRRC ,
   CSRRWI, CSRRSI, CSRRCI,
+  LUI, AUIPC,
+  ADDI, SLTI, SLTIU, XORI, ORI, ANDI, SLLI, SRLI, SRAI,
+  ADD, SUB, SLL ,SLT, SLTU, XOR, SRL, SRA, OR, AND,
   LW,  SW,
-  ADD,
+  JAL, JALR,
+  BEQ, BNE, BLT, BGE, BLTU, BGEU,
   NOP,
   WFI
 } inst_rv32_t;
@@ -58,4 +62,14 @@ public:
   XLEN_t csrrc (uint16_t addr, XLEN_t data) {
     return m_rv32_csr.csrrc (addr, data);
   }
+
+  // Utilitity for decoder
+  uint32_t ExtendSign (uint32_t data, uint32_t msb);
+  uint32_t ExtractBitField (uint32_t hex, uint32_t left, uint32_t right);
+  uint32_t ExtractUJField (uint32_t hex);
+  uint32_t ExtractIField (uint32_t hex);
+  uint32_t ExtractSBField (uint32_t hex);
+
+  inline XLEN_t  SExtXlen (uint32_t  hex) { return (hex << 32) >> 32; }
+  inline uint32_t UExtXlen (uint32_t hex) { return (hex << 32) >> 32; }
 };
