@@ -14,6 +14,9 @@ typedef enum {
   LW,  SW,
   JAL, JALR,
   BEQ, BNE, BLT, BGE, BLTU, BGEU,
+  FENCE, FENCE_I,
+  ECALL, EBREAK,
+  MRET, SRET, URET,
   NOP,
   WFI
 } inst_rv32_t;

@@ -5,7 +5,7 @@
 #include "rv32_cpu.hpp"
 #include "cpu_hls.h"
 
-void cpu_hls (const uint32_t inst_mem[2048], uint32_t data_mem[2048])
+void cpu_hls (const uint32_t inst_mem[8192], uint32_t data_mem[8192])
 {
   rv32_cpu u_rv32_cpu (data_mem);
 

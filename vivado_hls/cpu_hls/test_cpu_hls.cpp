@@ -5,7 +5,7 @@
 
 int main ()
 {
-  uint32_t memory[2048];
+  uint32_t memory[8192];
 
   FILE *fp;
   if ((fp = fopen ("test.hex", "r")) == NULL) {

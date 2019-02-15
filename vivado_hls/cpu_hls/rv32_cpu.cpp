@@ -25,6 +25,14 @@ void rv32_cpu::fetch_inst ()
 void rv32_cpu::decode_inst ()
 {
   switch(m_inst & 0x7f) {
+    case 0x0f : {
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = FENCE;   break;
+        case 0b001 : m_dec_inst = FENCE_I; break;
+        default    : m_dec_inst = NOP;     break;
+      }
+      break;
+    }
     case 0x33 : {
       switch ((m_inst >> 12) & 0x07) {
         case 0b000 : {
@@ -88,6 +96,22 @@ void rv32_cpu::decode_inst ()
     case 0x67 : m_dec_inst = JALR; break;
     case 0x73 :
       switch ((m_inst >> 12) & 0x07) {
+        case 0x000 : {
+          if (((m_inst >> 20) & 0xfff) == 0x000) {
+            m_dec_inst = ECALL;
+          } else if (((m_inst >> 20) & 0xfff) == 0x001) {
+            m_dec_inst = EBREAK;
+          } else if (((m_inst >> 20) & 0xfff) == 0x002) {
+            m_dec_inst = URET;
+          } else if (((m_inst >> 20) & 0xfff) == 0x102) {
+            m_dec_inst = SRET;
+          } else if (((m_inst >> 20) & 0xfff) == 0x302) {
+            m_dec_inst = MRET;
+          } else {
+            m_dec_inst = NOP;
+          }
+          break;
+        }
         case 0b001 : m_dec_inst = CSRRW  ; break;
         case 0b010 : m_dec_inst = CSRRS  ; break;
         case 0b011 : m_dec_inst = CSRRC  ; break;
@@ -112,23 +136,23 @@ void rv32_cpu::execute_inst()
   m_rs2 = get_rs2_addr (m_inst);
   m_rd  = get_rd_addr  (m_inst);
 
-  m_csr_addr = (m_inst >> 16) & 0x0ffff;
+  m_csr_addr = (m_inst >> 20) & 0x0ffff;
 
   m_update_pc = false;
 
   switch (m_dec_inst) {
     case CSRRW  : {
-      XLEN_t reg_data = csrrw (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrw (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
     case CSRRS  : {
-      XLEN_t reg_data = csrrs (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrs (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
     case CSRRC  : {
-      XLEN_t reg_data = csrrc (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrc (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
@@ -311,7 +335,36 @@ void rv32_cpu::execute_inst()
       m_update_pc = true;
       break;
     }
+    case FENCE   : { break; }
+    case FENCE_I : { break; }
+    case ECALL : {
+      XLEN_t mtvec = csrrs (CsrAddr::mtvec, 0); // MTVEC
+      csrrw (CsrAddr::mepc, m_pc); // MEPC
+      m_pc = mtvec;
+      m_update_pc = true;
+      break;
+    }
+    case EBREAK : { break; }
+    case URET : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x URET is not supported\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
+    }
+    case SRET : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x SRET is not supported\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
+    }
+    case MRET : {
+      XLEN_t mepc = csrrs (CsrAddr::mepc, 0); // MEPC
+      m_pc = mepc;
+      m_update_pc = true;
+      break;
+    }
     default  : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x Instruction Decode Error\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
       break;
     }
   }
