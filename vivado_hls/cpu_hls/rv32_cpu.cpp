@@ -73,6 +73,13 @@ void rv32_cpu::decode_inst ()
         case 0b100 : m_dec_inst = XORI;  break;
         case 0b110 : m_dec_inst = ORI;   break;
         case 0b111 : m_dec_inst = ANDI;  break;
+        case 0b001 : m_dec_inst = SLLI;  break;
+        case 0b101 : {
+          if      (((m_inst >> 25) & 0x7f) == 0b0000000) { m_dec_inst = SRLI; }
+          else if (((m_inst >> 25) & 0x7f) == 0b0100000) { m_dec_inst = SRAI; }
+          else                                           { m_dec_inst = NOP; }
+          break;
+        }
         default    : m_dec_inst = NOP;   break;
       }
       break;
@@ -191,6 +198,21 @@ void rv32_cpu::execute_inst()
       write_reg(m_rd, reg_data);
       break;
     }
+    case SLLI : {
+      XLEN_t reg_data = read_reg(m_rs1) << ExtractSHAMTField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SRLI : {
+      XLEN_t reg_data = (UXLEN_t)read_reg(m_rs1) >> ExtractSHAMTField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SRAI : {
+      XLEN_t reg_data = (XLEN_t)read_reg(m_rs1) >> ExtractSHAMTField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
 
     case ADD : {
       XLEN_t reg_data = read_reg(m_rs1) + read_reg(m_rs2);
@@ -265,7 +287,7 @@ void rv32_cpu::execute_inst()
       XLEN_t rs2_data = read_reg(m_rs2);
       Addr_t addr = ExtractSBField(m_inst);
       bool jump_en;
-      switch ((m_inst >> 12) & 0x7) {
+      switch (m_dec_inst) {
         case BEQ  : jump_en = (rs1_data == rs2_data); break;
         case BNE  : jump_en = (rs1_data != rs2_data); break;
         case BLT  : jump_en = (rs1_data <  rs2_data); break;
@@ -274,8 +296,11 @@ void rv32_cpu::execute_inst()
         case BGEU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
       }
       if (jump_en) {
-        m_pc = addr;
+        m_pc = m_pc + addr;
         m_update_pc = true;
+#ifndef __SYNTHESIS__
+        fprintf(m_cpu_log, "Jump Enabled PC = %08x\n", m_pc);
+#endif // __SYNTHESIS__
       }
       break;
     }
@@ -344,6 +369,12 @@ uint32_t rv32_cpu::ExtractIField (uint32_t hex)
 {
   uint32_t uimm32 = ExtractBitField (hex, 31, 20);
   return ExtendSign (uimm32, 11);
+}
+
+
+uint32_t rv32_cpu::ExtractSHAMTField (uint32_t hex)
+{
+  return ExtractBitField (hex, 24, 20);
 }
 
 

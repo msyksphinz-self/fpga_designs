@@ -85,6 +85,7 @@ class rv32_cpu {
   uint32_t ExtractUJField (uint32_t hex);
   uint32_t ExtractIField (uint32_t hex);
   uint32_t ExtractSBField (uint32_t hex);
+  uint32_t ExtractSHAMTField (uint32_t hex);
 
   inline XLEN_t  SExtXlen (uint32_t  hex) { return (hex << 32) >> 32; }
   inline uint32_t UExtXlen (uint32_t hex) { return (hex << 32) >> 32; }
