@@ -5,80 +5,302 @@
 
 rv32_cpu::rv32_cpu(uint32_t *data_mem)
     : m_data_mem(data_mem)
-{}
-
-inst_rv32_t rv32_cpu::decode_inst (uint32_t inst)
 {
-  switch(inst & 0x7f) {
+  m_reg32[0] = 0;
+  m_pc = 0;
+
+#ifndef __SYNTHESIS__
+  if ((m_cpu_log = fopen("cpu.log", "w")) == NULL) {
+    perror ("cpu.log");
+  }
+#endif // __SYNTHESIS__
+}
+
+void rv32_cpu::fetch_inst ()
+{
+  m_inst = m_data_mem[m_pc >> 2];
+}
+
+
+void rv32_cpu::decode_inst ()
+{
+  switch(m_inst & 0x7f) {
     case 0x33 : {
-      switch ((inst >> 12) & 0x07) {
+      switch ((m_inst >> 12) & 0x07) {
         case 0b000 : {
-          if      (((inst >> 25) & 0x7f) == 0b0000000) { return ADD; }
-          else if (((inst >> 25) & 0x7f) == 0b0100000) { return SUB; }
-          else                                       { return NOP; }
+          if      (((m_inst >> 25) & 0x7f) == 0b0000000) { m_dec_inst = ADD; }
+          else if (((m_inst >> 25) & 0x7f) == 0b0100000) { m_dec_inst = SUB; }
+          else                                           { m_dec_inst = NOP; }
+          break;
         }
-        case 0b001 : return SLL;
-        case 0b010 : return SLT;
-        case 0b011 : return SLTU;
-        case 0b100 : return XOR;
+        case 0b001 : m_dec_inst = SLL;  break;
+        case 0b010 : m_dec_inst = SLT;  break;
+        case 0b011 : m_dec_inst = SLTU; break;
+        case 0b100 : m_dec_inst = XOR;  break;
         case 0b101 : {
-          if      (((inst >> 25) & 0x7f) == 0b0000000) { return SRL; }
-          else if (((inst >> 25) & 0x7f) == 0b0100000) { return SRA; }
-          else                                       { return NOP; }
+          if      (((m_inst >> 25) & 0x7f) == 0b0000000) { m_dec_inst = SRL; }
+          else if (((m_inst >> 25) & 0x7f) == 0b0100000) { m_dec_inst = SRA; }
+          else                                       { m_dec_inst = NOP; }
+          break;
         }
-        case 0b110 : return OR;
-        case 0b111 : return AND;
-        default    : return NOP;
+        case 0b110 : m_dec_inst = OR;  break;
+        case 0b111 : m_dec_inst = AND; break;
+        default    : m_dec_inst = NOP; break;
       }
+      break;
     }
-    case 0x03 : return LW;
-    case 0x23 : return SW;
-    case 0x37 : return LUI;
-    case 0x17 : return AUIPC;
+    case 0x03 : m_dec_inst = LW;    break;
+    case 0x23 : m_dec_inst = SW;    break;
+    case 0x37 : m_dec_inst = LUI;   break;
+    case 0x17 : m_dec_inst = AUIPC; break;
     case 0x63 : {
-      switch ((inst >> 12) & 0x07) {
-        case 0b000 : return BEQ;
-        case 0b001 : return BNE;
-        case 0b100 : return BLT;
-        case 0b101 : return BGE;
-        case 0b110 : return BLTU;
-        case 0b111 : return BGEU;
-        default    : return NOP;
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = BEQ;  break;
+        case 0b001 : m_dec_inst = BNE;  break;
+        case 0b100 : m_dec_inst = BLT;  break;
+        case 0b101 : m_dec_inst = BGE;  break;
+        case 0b110 : m_dec_inst = BLTU; break;
+        case 0b111 : m_dec_inst = BGEU; break;
+        default    : m_dec_inst = NOP;  break;
       }
+      break;
     }
     case 0x13 : {
-      switch ((inst >> 12) & 0x07) {
-        case 0b000 : return ADDI;
-        case 0b010 : return SLTI;
-        case 0b011 : return SLTIU;
-        case 0b100 : return XORI;
-        case 0b110 : return ORI;
-        case 0b111 : return ANDI;
-        default    : return NOP;
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = ADDI;  break;
+        case 0b010 : m_dec_inst = SLTI;  break;
+        case 0b011 : m_dec_inst = SLTIU; break;
+        case 0b100 : m_dec_inst = XORI;  break;
+        case 0b110 : m_dec_inst = ORI;   break;
+        case 0b111 : m_dec_inst = ANDI;  break;
+        default    : m_dec_inst = NOP;   break;
       }
+      break;
     }
-    case 0x6f : return JAL;
-    case 0x67 : return JALR;
+    case 0x6f : m_dec_inst = JAL;  break;
+    case 0x67 : m_dec_inst = JALR; break;
     case 0x73 :
-      switch ((inst >> 12) & 0x07) {
-        case 0b001 : return CSRRW  ;
-        case 0b010 : return CSRRS  ;
-        case 0b011 : return CSRRC  ;
-        case 0b101 : return CSRRWI ;
-        case 0b110 : return CSRRSI ;
-        case 0b111 : return CSRRCI ;
-        default    : return NOP    ;
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b001 : m_dec_inst = CSRRW  ; break;
+        case 0b010 : m_dec_inst = CSRRS  ; break;
+        case 0b011 : m_dec_inst = CSRRC  ; break;
+        case 0b101 : m_dec_inst = CSRRWI ; break;
+        case 0b110 : m_dec_inst = CSRRSI ; break;
+        case 0b111 : m_dec_inst = CSRRCI ; break;
+        default    : m_dec_inst = NOP    ; break;
       }
-    default   : return WFI;
+      break;
+    default   : m_dec_inst = WFI; break;
   }
 }
 
 
-XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, uint32_t *data_mem)
+void rv32_cpu::execute_inst()
+{
+#ifndef __SYNTHESIS__
+  fprintf(m_cpu_log, "[%08x] : %08x DASM(%08x)\n", m_pc, m_inst, m_inst);
+#endif // _SYNTHESIS
+
+  m_rs1 = get_rs1_addr (m_inst);
+  m_rs2 = get_rs2_addr (m_inst);
+  m_rd  = get_rd_addr  (m_inst);
+
+  m_csr_addr = (m_inst >> 16) & 0x0ffff;
+
+  m_update_pc = false;
+
+  switch (m_dec_inst) {
+    case CSRRW  : {
+      XLEN_t reg_data = csrrw (m_csr_addr, m_rs1);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case CSRRS  : {
+      XLEN_t reg_data = csrrs (m_csr_addr, m_rs1);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case CSRRC  : {
+      XLEN_t reg_data = csrrc (m_csr_addr, m_rs1);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case CSRRWI : {
+      XLEN_t zimm = (m_inst >> 15) & 0x1f;
+      XLEN_t reg_data = csrrw (m_csr_addr, zimm);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case CSRRSI : {
+      XLEN_t zimm = (m_inst >> 15) & 0x1f;
+      XLEN_t reg_data = csrrs (m_csr_addr, zimm);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case CSRRCI : {
+      XLEN_t zimm = (m_inst >> 15) & 0x1f;
+      XLEN_t reg_data = csrrc (m_csr_addr, zimm);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case LUI : {
+      XLEN_t imm = ExtendSign (ExtractBitField (m_inst, 31, 12), 19);
+      imm = SExtXlen(imm << 12);
+      write_reg(m_rd, imm);
+      break;
+    }
+    case AUIPC : {
+      XLEN_t imm = ExtendSign (ExtractBitField (m_inst, 31, 12), 19);
+      imm = SExtXlen(imm << 12) + m_pc & 0x0fff;
+      write_reg(m_rd, imm);
+      break;
+    }
+    case LW  : {
+      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case ADDI : {
+      XLEN_t reg_data = read_reg(m_rs1) + ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SLTI : {
+      XLEN_t reg_data = read_reg(m_rs1) < ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SLTIU : {
+      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) < ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case XORI : {
+      XLEN_t reg_data = read_reg(m_rs1) ^ ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case ORI : {
+      XLEN_t reg_data = read_reg(m_rs1) | ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case ANDI : {
+      XLEN_t reg_data = read_reg(m_rs1) & ExtractIField (m_inst);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+
+    case ADD : {
+      XLEN_t reg_data = read_reg(m_rs1) + read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SUB : {
+      XLEN_t reg_data = read_reg(m_rs1) - read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SLL : {
+      XLEN_t reg_data = read_reg(m_rs1) << (uint32_t)read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SLT : {
+      XLEN_t reg_data = read_reg(m_rs1) < read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SLTU : {
+      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) < (uint32_t)read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case XOR : {
+      XLEN_t reg_data = read_reg(m_rs1) ^ read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SRL : {
+      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) >> (uint32_t)read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SRA : {
+      XLEN_t reg_data = read_reg(m_rs1) >> (uint32_t)read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case OR : {
+      XLEN_t reg_data = read_reg(m_rs1) | read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case AND : {
+      XLEN_t reg_data = read_reg(m_rs1) & read_reg(m_rs2);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case SW  : {
+      Addr_t addr = read_reg(m_rs1) + ((m_inst >> 25) + ((m_inst >> 7) &0x1f));
+      XLEN_t reg_data = read_reg(m_rs1);
+      mem_access(STORE, read_reg(m_rs2), addr);
+      break;
+    }
+    case JAL : {
+      Addr_t addr = ExtractUJField(m_inst);
+      m_pc = addr;
+      write_reg(m_rd, addr + 4);
+      m_update_pc = true;
+      break;
+    }
+    case BEQ  :
+    case BNE  :
+    case BLT  :
+    case BGE  :
+    case BLTU :
+    case BGEU : {
+      XLEN_t rs1_data = read_reg(m_rs1);
+      XLEN_t rs2_data = read_reg(m_rs2);
+      Addr_t addr = ExtractSBField(m_inst);
+      bool jump_en;
+      switch ((m_inst >> 12) & 0x7) {
+        case BEQ  : jump_en = (rs1_data == rs2_data); break;
+        case BNE  : jump_en = (rs1_data != rs2_data); break;
+        case BLT  : jump_en = (rs1_data <  rs2_data); break;
+        case BGE  : jump_en = (rs1_data >= rs2_data); break;
+        case BLTU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
+        case BGEU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
+      }
+      if (jump_en) {
+        m_pc = addr;
+        m_update_pc = true;
+      }
+      break;
+    }
+    case JALR : {
+      Addr_t addr = ExtractIField (m_inst);
+      m_pc = addr;
+      write_reg(m_rd, addr + 4);
+      m_update_pc = true;
+      break;
+    }
+    default  : {
+      break;
+    }
+  }
+  if (m_update_pc == false) {
+    m_pc += 4;
+  }
+}
+
+
+XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
 {
   switch (op) {
-    case STORE : data_mem[addr] = data; break;
-    case LOAD  : return data_mem[addr]; break;
+    case STORE : m_data_mem[addr] = data; break;
+    case LOAD  : return m_data_mem[addr]; break;
   }
   return 0;
 }

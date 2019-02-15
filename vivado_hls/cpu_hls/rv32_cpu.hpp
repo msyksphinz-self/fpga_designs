@@ -24,24 +24,35 @@ typedef enum {
 } memtype_t;
 
 class rv32_cpu {
+  Addr_t m_pc;
+
+  Inst_t m_inst;
+  inst_rv32_t m_dec_inst;
+
   XLEN_t m_reg32[32];
   rv32_csr m_rv32_csr;
   uint32_t *m_data_mem;
 
-public:
-  rv32_cpu (uint32_t *data_mem);
+  RegAddr_t m_rs1;
+  RegAddr_t m_rs2;
+  RegAddr_t m_rd ;
+  uint16_t  m_csr_addr;
 
-  XLEN_t mem_access (memtype_t op, uint32_t data, uint32_t addr, uint32_t *data_mem);
+  bool m_update_pc = false;
 
-  inst_rv32_t decode_inst (INST_t inst);
+#ifndef __SYNTHESIS__
+  FILE *m_cpu_log;
+#endif // __SYNTHESIS__
 
-  RegAddr_t get_rs1_addr (INST_t inst) {
+  XLEN_t mem_access (memtype_t op, uint32_t data, uint32_t addr);
+
+  RegAddr_t get_rs1_addr (Inst_t inst) {
     return ((inst >> 15) & 0x1f);
   }
-  RegAddr_t get_rs2_addr (INST_t inst) {
+  RegAddr_t get_rs2_addr (Inst_t inst) {
     return ((inst >> 20) & 0x1f);
   }
-  RegAddr_t get_rd_addr (INST_t inst) {
+  RegAddr_t get_rd_addr (Inst_t inst) {
     return ((inst >> 7) & 0x1f);
   }
 
@@ -50,7 +61,12 @@ public:
   }
 
   void write_reg(RegAddr_t addr, XLEN_t data) {
-    m_reg32[addr] = data;
+    if (addr != 0) {
+      m_reg32[addr] = data;
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "x%02d <= %08x\n", addr, data);
+#endif // _SYNTHESIS
+    }
   }
 
   XLEN_t csrrw (uint16_t addr, XLEN_t data) {
@@ -72,4 +88,13 @@ public:
 
   inline XLEN_t  SExtXlen (uint32_t  hex) { return (hex << 32) >> 32; }
   inline uint32_t UExtXlen (uint32_t hex) { return (hex << 32) >> 32; }
+
+public:
+  rv32_cpu (uint32_t *data_mem);
+
+  void fetch_inst  ();
+  void decode_inst ();
+  void execute_inst();
+
+  bool is_finish_cpu() { return m_dec_inst == WFI; }
 };
