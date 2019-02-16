@@ -19,7 +19,9 @@ int main ()
     idx ++;
   }
 
-  cpu_hls (memory, memory);
+  uint32_t result = cpu_hls (memory);
 
-  return 0;
+  fprintf (stdout, "Result = %d\n", result);
+
+  return !(result == 1);
 }

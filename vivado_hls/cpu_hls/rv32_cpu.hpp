@@ -21,6 +21,26 @@ typedef enum {
   WFI
 } inst_rv32_t;
 
+
+typedef enum {
+  InstAddrMisalign  =  0,
+  InstAccessFault   =  1,
+  IllegalInst       =  2,
+  Breakpoint        =  3,
+  LoadAddrMisalign  =  4,
+  LoadAccessFault   =  5,
+  StoreAddrMisalign =  6,
+  StoreAccessFault  =  7,
+  EcallFromUMode    =  8,
+  EcallFromSMode    =  9,
+  EcallFromHMode    = 10,
+  EcallFromMMode    = 11,
+  InstPageFault     = 12,
+  LoadPageFault     = 13,
+  StorePageFault    = 15
+} ExceptCode_t;
+
+
 typedef enum {
   LOAD = 0,
   STORE = 1
@@ -35,13 +55,18 @@ class rv32_cpu {
   XLEN_t m_reg32[32];
   rv32_csr m_rv32_csr;
   uint32_t *m_data_mem;
+  Addr_t m_tohost_addr;
+  Addr_t m_fromhost_addr;
+  XLEN_t m_tohost;
+  XLEN_t m_fromhost;
 
   RegAddr_t m_rs1;
   RegAddr_t m_rs2;
   RegAddr_t m_rd ;
   uint16_t  m_csr_addr;
 
-  bool m_update_pc = false;
+  bool m_update_pc;
+  bool m_finish_cpu;
 
 #ifndef __SYNTHESIS__
   FILE *m_cpu_log;
@@ -83,22 +108,26 @@ class rv32_cpu {
   }
 
   // Utilitity for decoder
-  uint32_t ExtendSign (uint32_t data, uint32_t msb);
-  uint32_t ExtractBitField (uint32_t hex, uint32_t left, uint32_t right);
-  uint32_t ExtractUJField (uint32_t hex);
-  uint32_t ExtractIField (uint32_t hex);
-  uint32_t ExtractSBField (uint32_t hex);
-  uint32_t ExtractSHAMTField (uint32_t hex);
+  XLEN_t ExtendSign (uint32_t data, uint32_t msb);
+  XLEN_t ExtractBitField (Inst_t hex, uint32_t left, uint32_t right);
+  XLEN_t ExtractUJField (Inst_t hex);
+  XLEN_t ExtractIField (Inst_t hex);
+  XLEN_t ExtractSBField (Inst_t hex);
+  XLEN_t ExtractSField (Inst_t hex);
+  XLEN_t ExtractSHAMTField (Inst_t hex);
 
-  inline XLEN_t  SExtXlen (uint32_t  hex) { return (hex << 32) >> 32; }
-  inline uint32_t UExtXlen (uint32_t hex) { return (hex << 32) >> 32; }
+  inline XLEN_t  SExtXlen (Inst_t hex) { return hex; }
+  inline UXLEN_t UExtXlen (Inst_t hex) { return hex; }
 
 public:
-  rv32_cpu (uint32_t *data_mem);
+  rv32_cpu (uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr);
 
   void fetch_inst  ();
   void decode_inst ();
   void execute_inst();
 
-  bool is_finish_cpu() { return m_dec_inst == WFI; }
+  XLEN_t get_tohost   () { return m_tohost; }
+  XLEN_t get_fromhost () { return m_fromhost; }
+
+  bool is_finish_cpu() { return m_finish_cpu || (m_dec_inst == WFI); }
 };

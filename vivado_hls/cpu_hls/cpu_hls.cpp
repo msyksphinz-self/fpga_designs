@@ -5,9 +5,9 @@
 #include "rv32_cpu.hpp"
 #include "cpu_hls.h"
 
-void cpu_hls (const uint32_t inst_mem[8192], uint32_t data_mem[8192])
+XLEN_t cpu_hls (uint32_t mem[8192])
 {
-  rv32_cpu u_rv32_cpu (data_mem);
+  rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);
 
   do {
     u_rv32_cpu.fetch_inst();
@@ -15,5 +15,5 @@ void cpu_hls (const uint32_t inst_mem[8192], uint32_t data_mem[8192])
     u_rv32_cpu.execute_inst();
   } while (!u_rv32_cpu.is_finish_cpu());
 
-  return;
+  return u_rv32_cpu.get_tohost();
 }

@@ -1,7 +1,9 @@
 #ifndef __CPU_HLS__
 #define __CPU_HLS__
 
-void cpu_hls (const uint32_t inst_mem[1024], uint32_t data_mem[1024]);
+#include "rv32_cpu.hpp"
+#include "cpu_hls.h"
 
+XLEN_t cpu_hls (uint32_t mem[8192]);
 
 #endif // __CPU_HLS__
