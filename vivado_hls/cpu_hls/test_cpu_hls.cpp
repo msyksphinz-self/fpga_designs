@@ -7,7 +7,6 @@ int main ()
 {
   uint32_t memory[MEMORY_SIZE];
 
-  // #ifndef __SYNTHESIS__
   FILE *fp;
   if ((fp = fopen ("test.hex", "r")) == NULL) {
     perror ("test.hex");
@@ -19,14 +18,14 @@ int main ()
     fprintf (stdout, "memory[%d] <= %08x\n", idx, memory[idx]);
     idx ++;
   }
-  // #endif // __SYNTHESIS__
 
+  // unsigned long start_time = pmon_start_cycle_counter ();
   uint32_t result = cpu_hls (memory);
+  // unsigned long stop_time = pmon_read_cycle_counter();
 
-  // #ifndef __SYNTHESIS__
   fprintf (stdout, "Result = %d\n", result);
-  // #endif // __SYNTHESIS__
+  // fprintf (stdout, "start_time = %ld, stop_time = %ld, Time = %d\n",
+  //          start_time, stop_time, stop_time - start_time);
 
-  // return !(result == 1);
-  return 0;
+  return !(result == 1);
 }
