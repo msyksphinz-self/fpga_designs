@@ -1,7 +1,8 @@
 open_project $env(HLS_TARGET)
 set_top $env(HLS_TARGET)
 add_files $env(HLS_SRC)
-add_files -tb test_$env(HLS_TARGET).cpp -cflags "-DC_SIMULATION"
+add_files -tb test_$env(HLS_TARGET).cpp
+add_files -tb test.hex
 open_solution $env(HLS_SOLUTION)
 
 create_clock -period 10 -name default

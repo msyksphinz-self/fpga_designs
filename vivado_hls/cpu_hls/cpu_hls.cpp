@@ -5,7 +5,7 @@
 #include "rv32_cpu.hpp"
 #include "cpu_hls.h"
 
-XLEN_t cpu_hls (uint32_t mem[8192])
+XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE])
 {
   rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);
 

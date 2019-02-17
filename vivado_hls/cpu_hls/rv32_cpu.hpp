@@ -129,5 +129,7 @@ public:
   XLEN_t get_tohost   () { return m_tohost; }
   XLEN_t get_fromhost () { return m_fromhost; }
 
+  Addr_t GetPC () { return m_pc; }
+
   bool is_finish_cpu() { return m_finish_cpu || (m_dec_inst == WFI); }
 };

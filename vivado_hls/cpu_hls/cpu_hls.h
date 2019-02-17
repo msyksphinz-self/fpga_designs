@@ -2,8 +2,9 @@
 #define __CPU_HLS__
 
 #include "rv32_cpu.hpp"
-#include "cpu_hls.h"
 
-XLEN_t cpu_hls (uint32_t mem[8192]);
+#define MEMORY_SIZE (8192)
+
+XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE]);
 
 #endif // __CPU_HLS__
