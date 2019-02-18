@@ -22,3 +22,6 @@
 [submodule "vivado_hls/cpu_hls/riscv-tests"]
 	path = vivado_hls/cpu_hls/riscv-tests
 	url = https://github.com/riscv/riscv-tests.git
+[submodule "ZynqBTC"]
+	path = ZynqBTC
+	url = https://github.com/stiggy87/ZynqBTC.git
