@@ -1,11 +1,14 @@
 #include "stdio.h"
 
+#include "cpu_hls.h"
 #include "rv32_cpu.hpp"
 
-
-rv32_cpu::rv32_cpu(uint32_t *data_mem)
-    : m_data_mem(data_mem)
+rv32_cpu::rv32_cpu(uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
+    : m_data_mem(data_mem), m_tohost_addr(tohost_addr), m_fromhost_addr(fromhost_addr)
 {
+  m_update_pc = false;
+  m_finish_cpu = false;
+
   m_reg32[0] = 0;
   m_pc = 0;
 
@@ -25,6 +28,14 @@ void rv32_cpu::fetch_inst ()
 void rv32_cpu::decode_inst ()
 {
   switch(m_inst & 0x7f) {
+    case 0x0f : {
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = FENCE;   break;
+        case 0b001 : m_dec_inst = FENCE_I; break;
+        default    : m_dec_inst = NOP;     break;
+      }
+      break;
+    }
     case 0x33 : {
       switch ((m_inst >> 12) & 0x07) {
         case 0b000 : {
@@ -88,6 +99,22 @@ void rv32_cpu::decode_inst ()
     case 0x67 : m_dec_inst = JALR; break;
     case 0x73 :
       switch ((m_inst >> 12) & 0x07) {
+        case 0x000 : {
+          if (((m_inst >> 20) & 0xfff) == 0x000) {
+            m_dec_inst = ECALL;
+          } else if (((m_inst >> 20) & 0xfff) == 0x001) {
+            m_dec_inst = EBREAK;
+          } else if (((m_inst >> 20) & 0xfff) == 0x002) {
+            m_dec_inst = URET;
+          } else if (((m_inst >> 20) & 0xfff) == 0x102) {
+            m_dec_inst = SRET;
+          } else if (((m_inst >> 20) & 0xfff) == 0x302) {
+            m_dec_inst = MRET;
+          } else {
+            m_dec_inst = NOP;
+          }
+          break;
+        }
         case 0b001 : m_dec_inst = CSRRW  ; break;
         case 0b010 : m_dec_inst = CSRRS  ; break;
         case 0b011 : m_dec_inst = CSRRC  ; break;
@@ -106,29 +133,30 @@ void rv32_cpu::execute_inst()
 {
 #ifndef __SYNTHESIS__
   fprintf(m_cpu_log, "[%08x] : %08x DASM(%08x)\n", m_pc, m_inst, m_inst);
+  fflush(m_cpu_log);
 #endif // _SYNTHESIS
 
   m_rs1 = get_rs1_addr (m_inst);
   m_rs2 = get_rs2_addr (m_inst);
   m_rd  = get_rd_addr  (m_inst);
 
-  m_csr_addr = (m_inst >> 16) & 0x0ffff;
+  m_csr_addr = (m_inst >> 20) & 0x0ffff;
 
   m_update_pc = false;
 
   switch (m_dec_inst) {
     case CSRRW  : {
-      XLEN_t reg_data = csrrw (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrw (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
     case CSRRS  : {
-      XLEN_t reg_data = csrrs (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrs (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
     case CSRRC  : {
-      XLEN_t reg_data = csrrc (m_csr_addr, m_rs1);
+      XLEN_t reg_data = csrrc (m_csr_addr, read_reg(m_rs1));
       write_reg(m_rd, reg_data);
       break;
     }
@@ -158,7 +186,7 @@ void rv32_cpu::execute_inst()
     }
     case AUIPC : {
       XLEN_t imm = ExtendSign (ExtractBitField (m_inst, 31, 12), 19);
-      imm = SExtXlen(imm << 12) + m_pc & 0x0fff;
+      imm = SExtXlen(imm << 12) + (m_pc & 0x0fff);
       write_reg(m_rd, imm);
       break;
     }
@@ -265,14 +293,13 @@ void rv32_cpu::execute_inst()
       break;
     }
     case SW  : {
-      Addr_t addr = read_reg(m_rs1) + ((m_inst >> 25) + ((m_inst >> 7) &0x1f));
-      XLEN_t reg_data = read_reg(m_rs1);
+      Addr_t addr = read_reg(m_rs1) + ExtractSField(m_inst);
       mem_access(STORE, read_reg(m_rs2), addr);
       break;
     }
     case JAL : {
       Addr_t addr = ExtractUJField(m_inst);
-      m_pc = addr;
+      m_pc = m_pc + addr;
       write_reg(m_rd, addr + 4);
       m_update_pc = true;
       break;
@@ -311,7 +338,40 @@ void rv32_cpu::execute_inst()
       m_update_pc = true;
       break;
     }
+    case FENCE   : { break; }
+    case FENCE_I : { break; }
+    case ECALL : {
+      XLEN_t mtvec = csrrs (CsrAddr_mtvec, 0); // MTVEC
+
+      csrrw (CsrAddr_mepc, m_pc);                           // MEPC
+      csrrw (CsrAddr_mcause, EcallFromMMode); // MCAUSE
+      csrrw (CsrAddr_mtval, 0);                             // MTVAL
+
+      m_pc = mtvec;
+      m_update_pc = true;
+      break;
+    }
+    case EBREAK : { break; }
+    case URET : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x URET is not supported\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
+    }
+    case SRET : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x SRET is not supported\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
+    }
+    case MRET : {
+      XLEN_t mepc = csrrs (CsrAddr_mepc, 0); // MEPC
+      m_pc = mepc;
+      m_update_pc = true;
+      break;
+    }
     default  : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Error: [%08x] : %08x Instruction Decode Error\n", m_pc, m_inst);
+#endif // __SYNTHESIS__
       break;
     }
   }
@@ -324,14 +384,37 @@ void rv32_cpu::execute_inst()
 XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
 {
   switch (op) {
-    case STORE : m_data_mem[addr] = data; break;
-    case LOAD  : return m_data_mem[addr]; break;
+    case STORE : {
+#ifndef __SYNTHESIS__
+      fprintf(m_cpu_log, "Info: Accessing memory[%08x]<=%08x\n", addr, data);
+#endif // __SYNTHESIS__
+      if (addr == m_tohost_addr) {
+        m_finish_cpu = true;
+        m_tohost = data;
+      } else if (addr == m_fromhost_addr) {
+        m_finish_cpu = true;
+        m_fromhost = data;
+      } else {
+        m_data_mem[addr] = data;
+      }
+      break;
+    }
+    case LOAD  : {
+      if (addr == m_tohost_addr) {
+        return m_tohost;
+      } else if (addr == m_fromhost_addr) {
+        return m_fromhost;
+      } else {
+        return m_data_mem[addr];
+      }
+      break;
+    }
   }
   return 0;
 }
 
 
-uint32_t rv32_cpu::ExtendSign (uint32_t data, uint32_t msb)
+XLEN_t rv32_cpu::ExtendSign (uint32_t data, uint32_t msb)
 {
 
   int const mask = 1ULL << msb; // mask can be pre-computed if b is fixed
@@ -341,14 +424,14 @@ uint32_t rv32_cpu::ExtendSign (uint32_t data, uint32_t msb)
 }
 
 
-uint32_t rv32_cpu::ExtractBitField (uint32_t hex, uint32_t left, uint32_t right)
+XLEN_t rv32_cpu::ExtractBitField (Inst_t hex, uint32_t left, uint32_t right)
 {
   uint32_t mask = (static_cast<uint32_t>(1) << (left - right + 1)) - 1;
   return (hex >> right) & mask;
 }
 
 
-uint32_t rv32_cpu::ExtractUJField (uint32_t hex)
+XLEN_t rv32_cpu::ExtractUJField (Inst_t hex)
 {
   uint32_t i24_21 = ExtractBitField (hex, 24, 21) & 0x0fUL;
   uint32_t i30_25 = ExtractBitField (hex, 30, 25) & 0x03fUL;
@@ -365,20 +448,20 @@ uint32_t rv32_cpu::ExtractUJField (uint32_t hex)
 }
 
 
-uint32_t rv32_cpu::ExtractIField (uint32_t hex)
+XLEN_t rv32_cpu::ExtractIField (Inst_t hex)
 {
   uint32_t uimm32 = ExtractBitField (hex, 31, 20);
   return ExtendSign (uimm32, 11);
 }
 
 
-uint32_t rv32_cpu::ExtractSHAMTField (uint32_t hex)
+XLEN_t rv32_cpu::ExtractSHAMTField (Inst_t hex)
 {
   return ExtractBitField (hex, 24, 20);
 }
 
 
-uint32_t rv32_cpu::ExtractSBField (uint32_t hex)
+XLEN_t rv32_cpu::ExtractSBField (Inst_t hex)
 {
   uint32_t i07_07 = ExtractBitField (hex,  7,  7) & 0x01UL;
   uint32_t i11_08 = ExtractBitField (hex, 11,  8) & 0x0fUL;
@@ -390,4 +473,16 @@ uint32_t rv32_cpu::ExtractSBField (uint32_t hex)
            (i30_25 <<  5) |
            (i11_08 <<  1);
   return ExtendSign (u_res, 12);
+}
+
+
+XLEN_t rv32_cpu::ExtractSField (Inst_t hex)
+{
+  XLEN_t i11_07 = ExtractBitField (hex, 11,  7) & 0x01fUL;
+  XLEN_t i31_25 = ExtractBitField (hex, 31, 25) & 0x07fUL;
+
+  XLEN_t u_res = (i31_25 << 5) |
+           (i11_07 << 0);
+
+  return ExtendSign (u_res, 11);
 }
