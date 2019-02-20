@@ -9,7 +9,7 @@ XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE])
 {
   rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);
 
-  do {
+  L0:do {
     u_rv32_cpu.fetch_inst();
     u_rv32_cpu.decode_inst();
     u_rv32_cpu.execute_inst();
