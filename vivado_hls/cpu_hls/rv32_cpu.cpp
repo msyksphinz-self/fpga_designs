@@ -60,7 +60,16 @@ void rv32_cpu::decode_inst ()
       }
       break;
     }
-    case 0x03 : m_dec_inst = LW;    break;
+    case 0x03 :
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = LB; break;
+        case 0b001 : m_dec_inst = LH; break;
+        case 0b010 : m_dec_inst = LW; break;
+        case 0b100 : m_dec_inst = LBU; break;
+        case 0b101 : m_dec_inst = LHU; break;
+        default    : m_dec_inst = NOP; break;
+      }
+      break;
     case 0x23 : m_dec_inst = SW;    break;
     case 0x37 : m_dec_inst = LUI;   break;
     case 0x17 : m_dec_inst = AUIPC; break;
@@ -190,9 +199,37 @@ void rv32_cpu::execute_inst()
       write_reg(m_rd, imm);
       break;
     }
+    case LB  : {
+      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      reg_data = reg_data >> (8 * (addr & 0x03));
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case LH  : {
+      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      reg_data = reg_data >> (8 * (addr & 0x02)) ;
+      write_reg(m_rd, reg_data);
+      break;
+    }
     case LW  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case LBU  : {
+      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      reg_data = reg_data >> (8 * (addr & 0x03));
+      write_reg(m_rd, reg_data);
+      break;
+    }
+    case LHU  : {
+      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
       break;
     }
@@ -327,6 +364,7 @@ void rv32_cpu::execute_inst()
         m_update_pc = true;
 #ifndef __SYNTHESIS__
         fprintf(m_cpu_log, "Jump Enabled PC = %08x\n", m_pc);
+        fflush(m_cpu_log);
 #endif // __SYNTHESIS__
       }
       break;
@@ -387,6 +425,7 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
     case STORE : {
 #ifndef __SYNTHESIS__
       fprintf(m_cpu_log, "Info: Accessing memory[%08x]<=%08x\n", addr, data);
+      fflush(m_cpu_log);
 #endif // __SYNTHESIS__
       if (addr == m_tohost_addr) {
         m_finish_cpu = true;

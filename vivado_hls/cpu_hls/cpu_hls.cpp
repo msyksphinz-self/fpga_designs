@@ -8,12 +8,14 @@
 XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE])
 {
   rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);
+  uint32_t test_counter = 0;
 
   L0:do {
+    test_counter ++;
     u_rv32_cpu.fetch_inst();
     u_rv32_cpu.decode_inst();
     u_rv32_cpu.execute_inst();
-  } while (!u_rv32_cpu.is_finish_cpu());
+  } while (!u_rv32_cpu.is_finish_cpu() && test_counter < 5000);
 
   return u_rv32_cpu.get_tohost();
 }

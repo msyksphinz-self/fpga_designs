@@ -3,13 +3,13 @@
 #include <stdint.h>
 #include "cpu_hls.h"
 
-int main ()
+int main (int argc, char *argv[])
 {
   uint32_t memory[MEMORY_SIZE];
 
   FILE *fp;
-  if ((fp = fopen ("test.hex", "r")) == NULL) {
-    perror ("test.hex");
+  if ((fp = fopen (argv[1], "r")) == NULL) {
+    perror (argv[1]);
     exit (1);
   }
 
@@ -19,13 +19,10 @@ int main ()
     idx ++;
   }
 
-  // unsigned long start_time = pmon_start_cycle_counter ();
   uint32_t result = cpu_hls (memory);
-  // unsigned long stop_time = pmon_read_cycle_counter();
 
   fprintf (stdout, "Result = %d\n", result);
-  // fprintf (stdout, "start_time = %ld, stop_time = %ld, Time = %d\n",
-  //          start_time, stop_time, stop_time - start_time);
+  fprintf (stderr, "Pattern %s = %d\n", argv[1], result);
 
-  return !(result == 1);
+  return 0;
 }

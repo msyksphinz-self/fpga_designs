@@ -3,7 +3,7 @@
 
 #include "rv32_cpu.hpp"
 
-#define MEMORY_SIZE (8192)
+#define MEMORY_SIZE (65536)
 
 XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE]);
 
