@@ -21,5 +21,7 @@ set_part {xcvu440-flgb2377-3-e}
 # }
 
 csynth_design
-cosim_design -argv test.hex
+cosim_design -argv test.hex \
+    -trace_level all
+
 export_design -format ip_catalog
