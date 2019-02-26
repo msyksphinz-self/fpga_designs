@@ -7,6 +7,7 @@
 
 XLEN_t cpu_hls (uint32_t mem[MEMORY_SIZE])
 {
+#pragma HLS INTERFACE m_axi port=mem bundle=mem
   rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);
   uint32_t test_counter = 0;
 

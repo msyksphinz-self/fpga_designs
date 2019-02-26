@@ -15,7 +15,7 @@ int main (int argc, char *argv[])
 
   int idx = 0;
   while (fscanf(fp, "%08x", &memory[idx]) != EOF) {
-    fprintf (stdout, "memory[%d] <= %08x\n", idx, memory[idx]);
+    // fprintf (stdout, "memory[%d] <= %08x\n", idx, memory[idx]);
     idx ++;
   }
 
@@ -24,5 +24,5 @@ int main (int argc, char *argv[])
   fprintf (stdout, "Result = %d\n", result);
   fprintf (stderr, "Pattern %s = %d\n", argv[1], result);
 
-  return 0;
+  return result != 1;
 }

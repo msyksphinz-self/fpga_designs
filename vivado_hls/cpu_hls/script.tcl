@@ -7,7 +7,7 @@ open_solution $env(HLS_SOLUTION)
 
 create_clock -period 10 -name default
 source "./directives.tcl"
-# csim_design -argv test.hex
+csim_design -argv test.hex
 
 # set fpga_parts [list_part zynq]
 # set zynq [lsearch $fpga_parts xc7z020clg484-1]
@@ -21,5 +21,5 @@ set_part {xcvu440-flgb2377-3-e}
 # }
 
 csynth_design
-cosim_design
+cosim_design -argv test.hex
 export_design -format ip_catalog

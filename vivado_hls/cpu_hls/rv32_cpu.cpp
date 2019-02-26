@@ -6,6 +6,7 @@
 rv32_cpu::rv32_cpu(uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
     : m_data_mem(data_mem), m_tohost_addr(tohost_addr), m_fromhost_addr(fromhost_addr)
 {
+#pragma HLS INTERFACE m_axi port=data_mem bundle=mem
   m_update_pc = false;
   m_finish_cpu = false;
 
