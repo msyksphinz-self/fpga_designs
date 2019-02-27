@@ -1,3 +1,3 @@
 #pragma once
 
-void axi_strober (uint8_t *master_mem);
+void axi_strober (uint32_t *);

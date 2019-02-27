@@ -6,7 +6,7 @@ open_solution $env(HLS_SOLUTION)
 
 create_clock -period 10 -name default
 source "./directives.tcl"
-csim_design -argv test.hex
+csim_design
 
 puts "Set VU440 as parts"
 set_part {xcvu440-flgb2377-3-e}
