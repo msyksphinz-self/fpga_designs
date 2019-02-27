@@ -74,7 +74,14 @@ void rv32_cpu::decode_inst ()
         default    : m_dec_inst = NOP; break;
       }
       break;
-    case 0x23 : m_dec_inst = SW;    break;
+    case 0x23 :
+      switch ((m_inst >> 12) & 0x07) {
+        case 0b000 : m_dec_inst = SB;    break;
+        case 0b001 : m_dec_inst = SH;    break;
+        case 0b010 : m_dec_inst = SW;    break;
+        default    : m_dec_inst = NOP;   break;
+      }
+      break;
     case 0x37 : m_dec_inst = LUI;   break;
     case 0x17 : m_dec_inst = AUIPC; break;
     case 0x63 : {
@@ -206,14 +213,14 @@ void rv32_cpu::execute_inst()
     case LB  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
-      reg_data = reg_data >> (8 * (addr & 0x03));
+      reg_data = reg_data;
       write_reg(m_rd, reg_data);
       break;
     }
     case LH  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
-      reg_data = reg_data >> (8 * (addr & 0x02)) ;
+      reg_data = reg_data;
       write_reg(m_rd, reg_data);
       break;
     }
@@ -226,14 +233,12 @@ void rv32_cpu::execute_inst()
     case LBU  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
-      reg_data = reg_data >> (8 * (addr & 0x03));
       write_reg(m_rd, reg_data);
       break;
     }
     case LHU  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
-      reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
       break;
     }
@@ -336,6 +341,16 @@ void rv32_cpu::execute_inst()
     case SW  : {
       Addr_t addr = read_reg(m_rs1) + ExtractSField(m_inst);
       mem_access(STORE, read_reg(m_rs2), addr, SIZE_WORD);
+      break;
+    }
+    case SH  : {
+      Addr_t addr = read_reg(m_rs1) + ExtractSField(m_inst);
+      mem_access(STORE, read_reg(m_rs2), addr, SIZE_HWORD);
+      break;
+    }
+    case SB  : {
+      Addr_t addr = read_reg(m_rs1) + ExtractSField(m_inst);
+      mem_access(STORE, read_reg(m_rs2), addr, SIZE_BYTE);
       break;
     }
     case JAL : {
