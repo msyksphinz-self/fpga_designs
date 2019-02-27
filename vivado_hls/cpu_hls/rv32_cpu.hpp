@@ -46,6 +46,15 @@ typedef enum {
   STORE = 1
 } memtype_t;
 
+
+typedef enum {
+  SIZE_BYTE  = 0,
+  SIZE_HWORD = 1,
+  SIZE_WORD  = 2,
+  SIZE_DWORD = 3
+} AccSize_t;
+
+
 class rv32_cpu {
   Addr_t m_pc;
 
@@ -54,7 +63,7 @@ class rv32_cpu {
 
   XLEN_t m_reg32[32];
   rv32_csr m_rv32_csr;
-  uint32_t *m_data_mem;
+  uint8_t *m_data_mem;
   Addr_t m_tohost_addr;
   Addr_t m_fromhost_addr;
   XLEN_t m_tohost;
@@ -72,7 +81,7 @@ class rv32_cpu {
   FILE *m_cpu_log;
 #endif // __SYNTHESIS__
 
-  XLEN_t mem_access (memtype_t op, uint32_t data, uint32_t addr);
+  XLEN_t mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize_t size);
 
   RegAddr_t get_rs1_addr (Inst_t inst) {
     return ((inst >> 15) & 0x1f);
@@ -120,7 +129,7 @@ class rv32_cpu {
   inline UXLEN_t UExtXlen (Inst_t hex) { return hex; }
 
 public:
-  rv32_cpu (uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr);
+  rv32_cpu (uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr);
 
   void fetch_inst  ();
   void decode_inst ();

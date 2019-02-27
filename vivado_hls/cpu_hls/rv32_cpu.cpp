@@ -3,7 +3,7 @@
 #include "cpu_hls.h"
 #include "rv32_cpu.hpp"
 
-rv32_cpu::rv32_cpu(uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
+rv32_cpu::rv32_cpu(uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
     : m_data_mem(data_mem), m_tohost_addr(tohost_addr), m_fromhost_addr(fromhost_addr)
 {
 #pragma HLS INTERFACE m_axi port=data_mem bundle=mem
@@ -22,7 +22,8 @@ rv32_cpu::rv32_cpu(uint32_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
 
 void rv32_cpu::fetch_inst ()
 {
-  m_inst = m_data_mem[m_pc >> 2];
+  uint32_t *data_mem32 = (uint32_t *)m_data_mem;
+  m_inst = data_mem32[m_pc >> 2];
 }
 
 
@@ -202,34 +203,34 @@ void rv32_cpu::execute_inst()
     }
     case LB  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
-      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
       reg_data = reg_data >> (8 * (addr & 0x03));
       write_reg(m_rd, reg_data);
       break;
     }
     case LH  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
-      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
       break;
     }
     case LW  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
-      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_WORD);
       write_reg(m_rd, reg_data);
       break;
     }
     case LBU  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
-      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
       reg_data = reg_data >> (8 * (addr & 0x03));
       write_reg(m_rd, reg_data);
       break;
     }
     case LHU  : {
       uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
-      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr);
+      UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
       break;
@@ -332,7 +333,7 @@ void rv32_cpu::execute_inst()
     }
     case SW  : {
       Addr_t addr = read_reg(m_rs1) + ExtractSField(m_inst);
-      mem_access(STORE, read_reg(m_rs2), addr);
+      mem_access(STORE, read_reg(m_rs2), addr, SIZE_WORD);
       break;
     }
     case JAL : {
@@ -420,14 +421,10 @@ void rv32_cpu::execute_inst()
 }
 
 
-XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
+XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize_t size)
 {
   switch (op) {
     case STORE : {
-#ifndef __SYNTHESIS__
-      fprintf(m_cpu_log, "Info: Accessing memory[%08x]<=%08x\n", addr, data);
-      fflush(m_cpu_log);
-#endif // __SYNTHESIS__
       if (addr == m_tohost_addr) {
         m_finish_cpu = true;
         m_tohost = data;
@@ -435,7 +432,29 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
         m_finish_cpu = true;
         m_fromhost = data;
       } else {
-        m_data_mem[addr] = data;
+        switch(size) {
+          case SIZE_BYTE  : {
+            m_data_mem[addr] = data;
+            break;
+          }
+          case SIZE_HWORD : {
+            uint16_t *data_mem16 = (uint16_t *)m_data_mem;
+            data_mem16[addr >> 1] = data & 0x0ffff;
+            break;
+          }
+          case SIZE_WORD : {
+            uint32_t *data_mem32 = (uint32_t *)m_data_mem;
+            data_mem32[addr >> 2] = data;
+            break;
+          }
+          default : {
+#ifndef __SYNTHESIS__
+            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", addr, data);
+            fflush(m_cpu_log);
+#endif // __SYNTHESIS__
+            break;
+          }
+        }
       }
       break;
     }
@@ -445,7 +464,26 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr)
       } else if (addr == m_fromhost_addr) {
         return m_fromhost;
       } else {
-        return m_data_mem[addr];
+        switch(size) {
+          case SIZE_BYTE  : {
+            return m_data_mem[addr];
+          }
+          case SIZE_HWORD : {
+            uint16_t *data_mem16 = (uint16_t *)m_data_mem;
+            return data_mem16[addr >> 1];
+          }
+          case SIZE_WORD : {
+            uint32_t *data_mem32 = (uint32_t *)m_data_mem;
+            return data_mem32[addr >> 2];
+          }
+          default : {
+#ifndef __SYNTHESIS__
+            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", addr, data);
+            fflush(m_cpu_log);
+#endif // __SYNTHESIS__
+            break;
+          }
+        }
       }
       break;
     }
