@@ -13,11 +13,11 @@ csim_design -argv test.hex
 # set zynq [lsearch $fpga_parts xc7z020clg484-1]
 
 # if { $zynq == -1 } {
-puts "Set VU440 as parts"
-set_part {xcvu440-flgb2377-3-e}
+# puts "Set VU440 as parts"
+# set_part {xcvu440-flgb2377-3-e}
 # } else {
-#     puts "Set XC7Z as parts"
-#     set_part {xc7z020clg484-1}
+puts "Set XC7Z as parts"
+set_part {xc7z020clg484-1}
 # }
 
 csynth_design

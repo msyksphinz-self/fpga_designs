@@ -5,7 +5,7 @@
 #include "rv32_cpu.hpp"
 #include "cpu_hls.h"
 
-XLEN_t cpu_hls (uint8_t mem[MEMORY_SIZE])
+uint32_t cpu_hls (uint8_t mem[MEMORY_SIZE])
 {
 #pragma HLS INTERFACE m_axi port=mem bundle=mem
   rv32_cpu u_rv32_cpu (mem, 0x1000, 0x1004);

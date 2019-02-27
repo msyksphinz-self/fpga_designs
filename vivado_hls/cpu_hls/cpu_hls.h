@@ -5,6 +5,6 @@
 
 #define MEMORY_SIZE (65536 * 4)
 
-XLEN_t cpu_hls (uint8_t mem[MEMORY_SIZE]);
+uint32_t cpu_hls (uint8_t mem[MEMORY_SIZE]);
 
 #endif // __CPU_HLS__

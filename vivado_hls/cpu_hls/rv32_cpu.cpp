@@ -22,8 +22,10 @@ rv32_cpu::rv32_cpu(uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
 
 void rv32_cpu::fetch_inst ()
 {
-  uint32_t *data_mem32 = (uint32_t *)m_data_mem;
-  m_inst = data_mem32[m_pc >> 2];
+  m_inst = (m_data_mem[m_pc + 3] << 24) |
+           (m_data_mem[m_pc + 2] << 16) |
+           (m_data_mem[m_pc + 1] <<  8) |
+           (m_data_mem[m_pc + 0] <<  0);
 }
 
 
@@ -438,13 +440,15 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
             break;
           }
           case SIZE_HWORD : {
-            uint16_t *data_mem16 = (uint16_t *)m_data_mem;
-            data_mem16[addr >> 1] = data & 0x0ffff;
+            m_data_mem[addr + 0] = (data >> 0) & 0xff;
+            m_data_mem[addr + 1] = (data >> 8) & 0xff;
             break;
           }
           case SIZE_WORD : {
-            uint32_t *data_mem32 = (uint32_t *)m_data_mem;
-            data_mem32[addr >> 2] = data;
+            m_data_mem[addr + 0] = (data >>  0) & 0xff;
+            m_data_mem[addr + 1] = (data >>  8) & 0xff;
+            m_data_mem[addr + 2] = (data >> 16) & 0xff;
+            m_data_mem[addr + 3] = (data >> 24) & 0xff;
             break;
           }
           default : {
@@ -469,12 +473,14 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
             return m_data_mem[addr];
           }
           case SIZE_HWORD : {
-            uint16_t *data_mem16 = (uint16_t *)m_data_mem;
-            return data_mem16[addr >> 1];
+            return (m_data_mem[addr + 1] << 8) |
+                   (m_data_mem[addr + 0] << 0);
           }
           case SIZE_WORD : {
-            uint32_t *data_mem32 = (uint32_t *)m_data_mem;
-            return data_mem32[addr >> 2];
+            return (m_data_mem[addr + 3] << 24) |
+                   (m_data_mem[addr + 2] << 16) |
+                   (m_data_mem[addr + 1] <<  8) |
+                   (m_data_mem[addr + 0] <<  0);
           }
           default : {
 #ifndef __SYNTHESIS__
