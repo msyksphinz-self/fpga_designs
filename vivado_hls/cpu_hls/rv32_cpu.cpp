@@ -204,34 +204,34 @@ void rv32_cpu::execute_inst()
       break;
     }
     case LB  : {
-      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
       reg_data = reg_data >> (8 * (addr & 0x03));
       write_reg(m_rd, reg_data);
       break;
     }
     case LH  : {
-      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
       break;
     }
     case LW  : {
-      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_WORD);
       write_reg(m_rd, reg_data);
       break;
     }
     case LBU  : {
-      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
       reg_data = reg_data >> (8 * (addr & 0x03));
       write_reg(m_rd, reg_data);
       break;
     }
     case LHU  : {
-      uint32_t addr = read_reg(m_rs1) + ((m_inst >> 20) & 0xfff);
+      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       reg_data = reg_data >> (8 * (addr & 0x02)) ;
       write_reg(m_rd, reg_data);
@@ -434,6 +434,10 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
         m_finish_cpu = true;
         m_fromhost = data;
       } else {
+#ifndef __SYNTHESIS__
+        fprintf(m_cpu_log, "Info: Store Memory %08x\n", addr);
+        fflush(m_cpu_log);
+#endif // __SYNTHESIS__
         switch(size) {
           case SIZE_BYTE  : {
             m_data_mem[addr] = data;
@@ -469,6 +473,10 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
         return m_fromhost;
       } else {
         switch(size) {
+#ifndef __SYNTHESIS__
+          fprintf(m_cpu_log, "Info: Load Memory %08x\n", addr);
+          fflush(m_cpu_log);
+#endif // __SYNTHESIS__
           case SIZE_BYTE  : {
             return m_data_mem[addr];
           }
@@ -477,10 +485,10 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
                    (m_data_mem[addr + 0] << 0);
           }
           case SIZE_WORD : {
-            return (m_data_mem[addr + 3] << 24) |
-                   (m_data_mem[addr + 2] << 16) |
-                   (m_data_mem[addr + 1] <<  8) |
-                   (m_data_mem[addr + 0] <<  0);
+            return ((XLEN_t)(m_data_mem[addr + 3]) << 24) |
+                   ((XLEN_t)(m_data_mem[addr + 2]) << 16) |
+                   ((XLEN_t)(m_data_mem[addr + 1]) <<  8) |
+                   ((XLEN_t)(m_data_mem[addr + 0]) <<  0);
           }
           default : {
 #ifndef __SYNTHESIS__

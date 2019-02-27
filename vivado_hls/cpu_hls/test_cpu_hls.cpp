@@ -29,4 +29,5 @@ int main (int argc, char *argv[])
   fprintf (stderr, "Pattern %s = %d\n", argv[1], result);
 
   return result != 1;
+  // return 0;
 }
