@@ -213,14 +213,14 @@ void rv32_cpu::execute_inst()
     case LB  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
-      reg_data = reg_data;
+      reg_data = ExtendSign(reg_data, 7);
       write_reg(m_rd, reg_data);
       break;
     }
     case LH  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
-      reg_data = reg_data;
+      reg_data = ExtendSign(reg_data, 15);
       write_reg(m_rd, reg_data);
       break;
     }
@@ -233,6 +233,8 @@ void rv32_cpu::execute_inst()
     case LBU  : {
       uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
+
+
       write_reg(m_rd, reg_data);
       break;
     }
@@ -355,8 +357,9 @@ void rv32_cpu::execute_inst()
     }
     case JAL : {
       Addr_t addr = ExtractUJField(m_inst);
+      write_reg(m_rd, m_pc + 4);
       m_pc = m_pc + addr;
-      write_reg(m_rd, addr + 4);
+
       m_update_pc = true;
       break;
     }
@@ -375,7 +378,7 @@ void rv32_cpu::execute_inst()
         case BNE  : jump_en = (rs1_data != rs2_data); break;
         case BLT  : jump_en = (rs1_data <  rs2_data); break;
         case BGE  : jump_en = (rs1_data >= rs2_data); break;
-        case BLTU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
+        case BLTU : jump_en = ((uint32_t)rs1_data <= (uint32_t)rs2_data); break;
         case BGEU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
       }
       if (jump_en) {
@@ -389,9 +392,13 @@ void rv32_cpu::execute_inst()
       break;
     }
     case JALR : {
-      Addr_t addr = ExtractIField (m_inst);
+      XLEN_t rs1_data = read_reg(m_rs1);
+      Addr_t addr = rs1_data + ExtractIField (m_inst);
+      addr = UExtXlen (addr & (~0x01));
+
+      write_reg(m_rd, m_pc + 4);
+
       m_pc = addr;
-      write_reg(m_rd, addr + 4);
       m_update_pc = true;
       break;
     }
@@ -493,11 +500,11 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
           fflush(m_cpu_log);
 #endif // __SYNTHESIS__
           case SIZE_BYTE  : {
-            return m_data_mem[addr];
+            return (m_data_mem[addr] & 0x0ff);
           }
           case SIZE_HWORD : {
-            return (m_data_mem[addr + 1] << 8) |
-                   (m_data_mem[addr + 0] << 0);
+            return ((m_data_mem[addr + 1] << 8) |
+                    (m_data_mem[addr + 0] << 0)) & 0x0ffff;
           }
           case SIZE_WORD : {
             return ((XLEN_t)(m_data_mem[addr + 3]) << 24) |

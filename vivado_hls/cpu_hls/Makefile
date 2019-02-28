@@ -14,6 +14,6 @@ RUN_PATTERNS = $(addsuffix _run,$(notdir $(basename $(TEST_PATTERNS))))
 regression: | $(RUN_PATTERNS)
 
 %_run:
-	make -f ../common/csim.mk HLS_SOLUTION=$(subst _run,,$@) TEST_PATTERN=$(subst _run,.hex,$@) > /dev/null
+	$(MAKE) -f ../common/csim.mk HLS_SOLUTION=$(subst _run,,$@) TEST_PATTERN=$(subst _run,.hex,$@) > /dev/null
 
 include ./../common/common.mk
