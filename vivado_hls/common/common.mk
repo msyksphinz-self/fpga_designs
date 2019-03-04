@@ -2,7 +2,7 @@ HLS_TARGET ?= design
 HLS_SOLUTION ?= opt1
 
 all:
-	vivado_hls ../common/script.tcl
+	vivado_hls script.tcl
 
 clean:
 	rm -rf *.log *~
