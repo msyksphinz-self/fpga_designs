@@ -1,9 +1,9 @@
 #pragma once
 
-#include <stdint.h>
+#include <ap_int.h>
 
-typedef int32_t  XLEN_t   ;
-typedef uint32_t UXLEN_t  ;
-typedef uint8_t  RegAddr_t;
-typedef uint32_t Inst_t   ;
-typedef uint16_t Addr_t   ;
+typedef ap_int<32>  XLEN_t   ;
+typedef ap_uint<32> UXLEN_t  ;
+typedef ap_uint<8>  RegAddr_t;
+typedef ap_uint<32> Inst_t   ;
+typedef ap_uint<16> Addr_t   ;

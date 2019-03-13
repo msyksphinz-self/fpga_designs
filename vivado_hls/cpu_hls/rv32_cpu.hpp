@@ -101,7 +101,7 @@ class rv32_cpu {
     if (addr != 0) {
       m_reg32[addr] = data;
 #ifndef __SYNTHESIS__
-      fprintf(m_cpu_log, "x%02d <= %08x\n", addr, data);
+      fprintf(m_cpu_log, "x%02d <= %08x\n", static_cast<uint32_t>(addr), static_cast<uint32_t>(data));
 #endif // _SYNTHESIS
     }
   }

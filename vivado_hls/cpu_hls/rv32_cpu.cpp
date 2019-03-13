@@ -152,7 +152,7 @@ void rv32_cpu::decode_inst ()
 void rv32_cpu::execute_inst()
 {
 #ifndef __SYNTHESIS__
-  fprintf(m_cpu_log, "[%08x] : %08x DASM(%08x)\n", m_pc, m_inst, m_inst);
+  fprintf(m_cpu_log, "[%08x] : %08x DASM(%08x)\n", static_cast<uint32_t>(m_pc), static_cast<uint32_t>(m_inst), static_cast<uint32_t>(m_inst));
   fflush(m_cpu_log);
 #endif // _SYNTHESIS
 
@@ -211,27 +211,27 @@ void rv32_cpu::execute_inst()
       break;
     }
     case LB  : {
-      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
+      Addr_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
       reg_data = ExtendSign(reg_data, 7);
       write_reg(m_rd, reg_data);
       break;
     }
     case LH  : {
-      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
+      Addr_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       reg_data = ExtendSign(reg_data, 15);
       write_reg(m_rd, reg_data);
       break;
     }
     case LW  : {
-      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
+      Addr_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       XLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_WORD);
       write_reg(m_rd, reg_data);
       break;
     }
     case LBU  : {
-      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
+      Addr_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_BYTE);
 
 
@@ -239,7 +239,7 @@ void rv32_cpu::execute_inst()
       break;
     }
     case LHU  : {
-      uint32_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
+      Addr_t addr = read_reg(m_rs1) + ExtendSign((m_inst >> 20) & 0xfff, 11);
       UXLEN_t reg_data = mem_access(LOAD, read_reg(m_rs1), addr, SIZE_HWORD);
       write_reg(m_rd, reg_data);
       break;
@@ -255,7 +255,7 @@ void rv32_cpu::execute_inst()
       break;
     }
     case SLTIU : {
-      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) < ExtractIField (m_inst);
+      XLEN_t reg_data = (UXLEN_t)read_reg(m_rs1) < (UXLEN_t)(ExtractIField (m_inst));
       write_reg(m_rd, reg_data);
       break;
     }
@@ -300,8 +300,9 @@ void rv32_cpu::execute_inst()
       write_reg(m_rd, reg_data);
       break;
     }
-    case SLL : {
-      XLEN_t reg_data = read_reg(m_rs1) << (uint32_t)read_reg(m_rs2);
+    case SLL: {
+      uint8_t shamt = read_reg(m_rs2) & 0x01f;
+      XLEN_t reg_data = read_reg(m_rs1) << shamt;
       write_reg(m_rd, reg_data);
       break;
     }
@@ -311,7 +312,7 @@ void rv32_cpu::execute_inst()
       break;
     }
     case SLTU : {
-      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) < (uint32_t)read_reg(m_rs2);
+      XLEN_t reg_data = (UXLEN_t)read_reg(m_rs1) < (UXLEN_t)read_reg(m_rs2);
       write_reg(m_rd, reg_data);
       break;
     }
@@ -321,12 +322,14 @@ void rv32_cpu::execute_inst()
       break;
     }
     case SRL : {
-      XLEN_t reg_data = (uint32_t)read_reg(m_rs1) >> (uint32_t)read_reg(m_rs2);
+      uint8_t shamt = read_reg(m_rs2) & 0x01f;
+      XLEN_t reg_data = (UXLEN_t)read_reg(m_rs1) >> shamt;
       write_reg(m_rd, reg_data);
       break;
     }
     case SRA : {
-      XLEN_t reg_data = read_reg(m_rs1) >> (uint32_t)read_reg(m_rs2);
+      uint8_t shamt = read_reg(m_rs2) & 0x01f;
+      XLEN_t reg_data = read_reg(m_rs1) >> shamt;
       write_reg(m_rd, reg_data);
       break;
     }
@@ -378,14 +381,14 @@ void rv32_cpu::execute_inst()
         case BNE  : jump_en = (rs1_data != rs2_data); break;
         case BLT  : jump_en = (rs1_data <  rs2_data); break;
         case BGE  : jump_en = (rs1_data >= rs2_data); break;
-        case BLTU : jump_en = ((uint32_t)rs1_data <= (uint32_t)rs2_data); break;
-        case BGEU : jump_en = ((uint32_t)rs1_data >= (uint32_t)rs2_data); break;
+        case BLTU : jump_en = ((UXLEN_t)rs1_data <= (UXLEN_t)rs2_data); break;
+        case BGEU : jump_en = ((UXLEN_t)rs1_data >= (UXLEN_t)rs2_data); break;
       }
       if (jump_en) {
         m_pc = m_pc + addr;
         m_update_pc = true;
 #ifndef __SYNTHESIS__
-        fprintf(m_cpu_log, "Jump Enabled PC = %08x\n", m_pc);
+        fprintf(m_cpu_log, "Jump Enabled PC = %08x\n", static_cast<uint32_t>(m_pc));
         fflush(m_cpu_log);
 #endif // __SYNTHESIS__
       }
@@ -418,12 +421,12 @@ void rv32_cpu::execute_inst()
     case EBREAK : { break; }
     case URET : {
 #ifndef __SYNTHESIS__
-      fprintf(m_cpu_log, "Error: [%08x] : %08x URET is not supported\n", m_pc, m_inst);
+      fprintf(m_cpu_log, "Error: [%08x] : %08x URET is not supported\n", static_cast<uint32_t>(m_pc), static_cast<uint32_t>(m_inst));
 #endif // __SYNTHESIS__
     }
     case SRET : {
 #ifndef __SYNTHESIS__
-      fprintf(m_cpu_log, "Error: [%08x] : %08x SRET is not supported\n", m_pc, m_inst);
+      fprintf(m_cpu_log, "Error: [%08x] : %08x SRET is not supported\n", static_cast<uint32_t>(m_pc), static_cast<uint32_t>(m_inst));
 #endif // __SYNTHESIS__
     }
     case MRET : {
@@ -434,7 +437,7 @@ void rv32_cpu::execute_inst()
     }
     default  : {
 #ifndef __SYNTHESIS__
-      fprintf(m_cpu_log, "Error: [%08x] : %08x Instruction Decode Error\n", m_pc, m_inst);
+      fprintf(m_cpu_log, "Error: [%08x] : %08x Instruction Decode Error\n", static_cast<uint32_t>(m_pc), static_cast<uint32_t>(m_inst));
 #endif // __SYNTHESIS__
       break;
     }
@@ -457,7 +460,7 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
         m_fromhost = data;
       } else {
 #ifndef __SYNTHESIS__
-        fprintf(m_cpu_log, "Info: Store Memory %08x\n", addr);
+        fprintf(m_cpu_log, "Info: Store Memory %08x\n", static_cast<uint32_t>(addr));
         fflush(m_cpu_log);
 #endif // __SYNTHESIS__
         switch(size) {
@@ -479,7 +482,7 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
           }
           default : {
 #ifndef __SYNTHESIS__
-            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", addr, data);
+            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", static_cast<uint32_t>(addr), static_cast<uint32_t>(data));
             fflush(m_cpu_log);
 #endif // __SYNTHESIS__
             break;
@@ -496,7 +499,7 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
       } else {
         switch(size) {
 #ifndef __SYNTHESIS__
-          fprintf(m_cpu_log, "Info: Load Memory %08x\n", addr);
+          fprintf(m_cpu_log, "Info: Load Memory %08x\n", static_cast<uint32_t>(addr));
           fflush(m_cpu_log);
 #endif // __SYNTHESIS__
           case SIZE_BYTE  : {
@@ -514,7 +517,7 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
           }
           default : {
 #ifndef __SYNTHESIS__
-            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", addr, data);
+            fprintf(m_cpu_log, "Info: Invalid Memory Access Size\n", static_cast<uint32_t>(addr), static_cast<uint32_t>(data));
             fflush(m_cpu_log);
 #endif // __SYNTHESIS__
             break;
