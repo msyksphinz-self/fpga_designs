@@ -63,7 +63,7 @@ class rv32_cpu {
 
   XLEN_t m_reg32[32];
   rv32_csr m_rv32_csr;
-  uint8_t *m_data_mem;
+  XLEN_t *m_data_mem;
   Addr_t m_tohost_addr;
   Addr_t m_fromhost_addr;
   XLEN_t m_tohost;
@@ -129,7 +129,7 @@ class rv32_cpu {
   inline UXLEN_t UExtXlen (Inst_t hex) { return hex; }
 
 public:
-  rv32_cpu (uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr);
+  rv32_cpu (XLEN_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr);
 
   void fetch_inst  ();
   void decode_inst ();

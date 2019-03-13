@@ -3,7 +3,7 @@
 #include "cpu_hls.h"
 #include "rv32_cpu.hpp"
 
-rv32_cpu::rv32_cpu(uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
+rv32_cpu::rv32_cpu(XLEN_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
     : m_data_mem(data_mem), m_tohost_addr(tohost_addr), m_fromhost_addr(fromhost_addr)
 {
 #pragma HLS INTERFACE m_axi port=data_mem bundle=mem
@@ -22,10 +22,7 @@ rv32_cpu::rv32_cpu(uint8_t *data_mem, Addr_t tohost_addr, Addr_t fromhost_addr)
 
 void rv32_cpu::fetch_inst ()
 {
-  m_inst = (m_data_mem[m_pc + 3] << 24) |
-           (m_data_mem[m_pc + 2] << 16) |
-           (m_data_mem[m_pc + 1] <<  8) |
-           (m_data_mem[m_pc + 0] <<  0);
+  m_inst = m_data_mem[m_pc >> 2];
 }
 
 
@@ -465,19 +462,21 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
 #endif // __SYNTHESIS__
         switch(size) {
           case SIZE_BYTE  : {
-            m_data_mem[addr] = data;
+            XLEN_t tmp_word = m_data_mem[addr >> 2];
+            tmp_word = (tmp_word & ~(0xff << ((addr & 0x03) * 8))) |
+                       ((data & 0xff) << ((addr & 0x03) * 8));
+            m_data_mem[addr >> 2] = data;
             break;
           }
           case SIZE_HWORD : {
-            m_data_mem[addr + 0] = (data >> 0) & 0xff;
-            m_data_mem[addr + 1] = (data >> 8) & 0xff;
+            XLEN_t tmp_word = m_data_mem[addr >> 2];
+            tmp_word = (tmp_word & ~(0xffff << ((addr & 0x02) * 8))) |
+                       ((data & 0xffff) << ((addr & 0x02) * 8));
+            m_data_mem[addr >> 2] = data;
             break;
           }
           case SIZE_WORD : {
-            m_data_mem[addr + 0] = (data >>  0) & 0xff;
-            m_data_mem[addr + 1] = (data >>  8) & 0xff;
-            m_data_mem[addr + 2] = (data >> 16) & 0xff;
-            m_data_mem[addr + 3] = (data >> 24) & 0xff;
+            m_data_mem[addr >> 2] = data;
             break;
           }
           default : {
@@ -503,17 +502,17 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
           fflush(m_cpu_log);
 #endif // __SYNTHESIS__
           case SIZE_BYTE  : {
-            return (m_data_mem[addr] & 0x0ff);
+            XLEN_t tmp_word = m_data_mem[addr >> 2];
+            tmp_word = (tmp_word >> ((addr & 0x03) * 8)) & 0xff;
+            return tmp_word;
           }
           case SIZE_HWORD : {
-            return ((m_data_mem[addr + 1] << 8) |
-                    (m_data_mem[addr + 0] << 0)) & 0x0ffff;
+            XLEN_t tmp_word = m_data_mem[addr >> 2];
+            tmp_word = (tmp_word >> ((addr & 0x02) * 8)) & 0xffff;
+            return tmp_word;
           }
           case SIZE_WORD : {
-            return ((XLEN_t)(m_data_mem[addr + 3]) << 24) |
-                   ((XLEN_t)(m_data_mem[addr + 2]) << 16) |
-                   ((XLEN_t)(m_data_mem[addr + 1]) <<  8) |
-                   ((XLEN_t)(m_data_mem[addr + 0]) <<  0);
+            return m_data_mem[addr >> 2];
           }
           default : {
 #ifndef __SYNTHESIS__
