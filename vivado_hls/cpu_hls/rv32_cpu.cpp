@@ -465,14 +465,14 @@ XLEN_t rv32_cpu::mem_access (memtype_t op, uint32_t data, uint32_t addr, AccSize
             XLEN_t tmp_word = m_data_mem[addr >> 2];
             tmp_word = (tmp_word & ~(0xff << ((addr & 0x03) * 8))) |
                        ((data & 0xff) << ((addr & 0x03) * 8));
-            m_data_mem[addr >> 2] = data;
+            m_data_mem[addr >> 2] = tmp_word;
             break;
           }
           case SIZE_HWORD : {
             XLEN_t tmp_word = m_data_mem[addr >> 2];
             tmp_word = (tmp_word & ~(0xffff << ((addr & 0x02) * 8))) |
                        ((data & 0xffff) << ((addr & 0x02) * 8));
-            m_data_mem[addr >> 2] = data;
+            m_data_mem[addr >> 2] = tmp_word;
             break;
           }
           case SIZE_WORD : {
